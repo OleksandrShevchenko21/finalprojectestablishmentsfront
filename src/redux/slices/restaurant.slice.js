@@ -7,7 +7,7 @@ const initialState = {
     loading: false,
     error: null,
     oneRestaurant: null,
-    newRestaurant: null
+    newRestaurant: null,
 }
 
 const getAllRestaurants = createAsyncThunk(
@@ -49,6 +49,24 @@ const saveNewRestaurant = createAsyncThunk(
         }
     }
 );
+
+// UPDATE-------------------------UPDATE---------------------------UPDATE-------------------------------
+// UPDATE-------------------------UPDATE---------------------------UPDATE-------------------------------
+const updateRestaurant = createAsyncThunk(
+    "restaurantSlice/updateRestaurant",
+    async ({id, updatedRestaurant}, {rejectWithValue, dispatch}) => {
+        const jsonBody = JSON.stringify(updatedRestaurant);
+
+        try {
+
+            const {data} = await restaurantService.updateRestaurant(id, updatedRestaurant);
+            dispatch(getAllRestaurants());
+            return data;
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
 // DELETE-------------------------DELETE---------------------------DELETE-------------------------------
 // DELETE-------------------------DELETE---------------------------DELETE-------------------------------
 const deleteRestaurantByID = createAsyncThunk(
@@ -66,17 +84,6 @@ const restaurantSlice = createSlice({
     name: 'restaurantSlice',
     initialState,
     reducers: {
-        // getAllRestaurants: (state, action) => {
-        //     state.restaurants = action.payload
-        // },
-        // setCurrentRestaurant: (state, action) => {
-        //     state.currentRestaurant = action.payload
-        // }
-        // },
-        // extraReducers: {
-        //     [getAllRestaurants.fulfilled]: (state, action) => {
-        //         state.restaurants = action.payload
-        //     }
         removeRestaurantSuccess: (state, action) => {
             state.restaurants = state.restaurants.filter((r) => r.id !== action.payload);
         },
@@ -101,6 +108,21 @@ const restaurantSlice = createSlice({
                 state.status = 'succeeded';
                 state.restaurants.push(action.payload);
             })
+            .addCase(updateRestaurant.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.oneRestaurant = action.payload
+                state.restaurants = state.restaurants.map((restaurant) => {
+                    if (restaurant.id === action.payload.id) {
+                        return action.payload;
+                    } else {
+                        return restaurant;
+                    }
+
+                })
+
+            })
+
+
 });
 const {
     reducer: restaurantReducer,
@@ -112,7 +134,8 @@ const restaurantActions = {
     setCurrentRestaurant,
     getRestaurantByID,
     saveNewRestaurant,
-    deleteRestaurantByID
+    deleteRestaurantByID,
+    updateRestaurant
 }
 export {
     restaurantReducer,

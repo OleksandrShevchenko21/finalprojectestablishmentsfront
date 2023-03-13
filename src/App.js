@@ -4,18 +4,21 @@ import {
     Header,
     NewRestaurantForm,
     Restaurants,
-    Reviews,
+    Reviews, UpdateRestaurantForm,
     Users
 } from "./components";
 
 const App = () => {
+
     return (
         <div>
             <Header/>
             <div>
                 <NewRestaurantForm/>
+
                 <Restaurants/>
                 <Reviews/>
+
             </div>
             <div>
                 <Users/>
