@@ -6,7 +6,7 @@ import {Restaurants} from "../Restaurants/Restaurants";
 
 const Restaurant = ({restaurant, onEdit}) => {
     const dispatch = useDispatch();
-    const [showUpdateForm, setShowUpdateForm] = useState(false);
+    // const [showUpdateForm, setShowUpdateForm] = useState(false);
     const {
         id,
         restaurantName,
@@ -16,18 +16,6 @@ const Restaurant = ({restaurant, onEdit}) => {
         contacts,
         averageCheck
     } = restaurant
-    const jsonBody = JSON.stringify(restaurant);
-    // const handleEdit = () => {
-    //     // Open a modal dialog or a separate page with the UpdateRestaurantForm component
-    //     // and pass the selected restaurant object as a prop
-    //     const updatedRestaurantForm = <UpdateRestaurantForm restaurant={restaurant} />;
-    //     // ...
-    // };
-    const [showEditForm, setShowEditForm] = useState(false);
-
-    const handleEdit = () => {
-        setShowEditForm(true);
-    };
 
     return (
         <div>

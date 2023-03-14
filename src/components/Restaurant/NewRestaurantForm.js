@@ -38,9 +38,6 @@ const NewRestaurantForm = () => {
         setContacts('');
         setAverageCheck('');
     };
-    // useEffect(() => {
-    //     dispatch(restaurantActions.getAllRestaurants())
-    // }, [status, dispatch])
 
     return (
         <form onSubmit={handleSubmit}>
