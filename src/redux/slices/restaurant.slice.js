@@ -106,7 +106,7 @@ const restaurantSlice = createSlice({
             })
             .addCase(saveNewRestaurant.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.restaurants.push(action.payload);
+                state.users.push(action.payload);
             })
             .addCase(updateRestaurant.fulfilled, (state, action) => {
                 state.status = "succeeded";

@@ -7,3 +7,5 @@ export * from './Reviews/Reviews';
 export * from './Review/Review';
 export * from './Users/Users';
 export * from './User/User';
+export * from './User/NewUserForm';
+export * from './User/UpdatedUserForm';

@@ -3,7 +3,11 @@ import {urls} from "../configs";
 
 
 const userService ={
-    getAll:()=>axiosService.get(urls.users)
+    getAllUsers: () => axiosService.get(urls.users),
+    saveNewUser: (newUser) => axiosService.post(urls.users, newUser),
+    updateUser: (id,updatedUser) => axiosService.patch(`${urls.users}/${id}`,updatedUser ),
+    getUserById: (id) => axiosService.get(`${urls.users}/${id}`),
+    deleteUserById: (id) => axiosService.delete(`${urls.users}/${id}`)
 }
 export{
     userService

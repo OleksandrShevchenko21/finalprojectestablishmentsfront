@@ -44,19 +44,9 @@ const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
         const jsonBody = JSON.stringify(updatedRestaurant);
 
         dispatch(restaurantActions.updateRestaurant({id, updatedRestaurant}));
-        // setRestaurantName('');
-        // setId('');
-        // setType('');
-        // setAddress('');
-        // setSchedule('');
-        // setContacts('');
-        // setAverageCheck('');
         onUpdate(id, updatedRestaurant);
 
-
-
     };
-
 
     return (
         <form onSubmit={handleSubmit}>
