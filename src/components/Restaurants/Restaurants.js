@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {restaurantActions} from "../../redux";
 import {Restaurant} from "../Restaurant/Restaurant";
 import "./Restaurants.css";
-import {UpdateRestaurantForm} from "../Restaurant/UpdatedRestaurantForm";
+import {UpdateRestaurantForm} from "../UpdateForm/UpdatedRestaurantForm";
 
 const Restaurants = () => {
     const dispatch = useDispatch();

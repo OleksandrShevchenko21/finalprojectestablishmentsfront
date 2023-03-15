@@ -1,6 +1,6 @@
 import {useDispatch} from "react-redux";
 import {restaurantActions} from "../../redux";
-import {UpdateRestaurantForm} from "./UpdatedRestaurantForm";
+import {UpdateRestaurantForm} from "../UpdateForm/UpdatedRestaurantForm";
 import {useState} from "react";
 import {Restaurants} from "../Restaurants/Restaurants";
 

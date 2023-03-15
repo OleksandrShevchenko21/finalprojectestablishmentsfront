@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {userActions} from "../../redux/slices/user.slice";
 import {User} from "../User/User";
 import "./Users.css"
-import {UpdateUserForm} from "../User/UpdatedUserForm";
+import {UpdateUserForm} from "../UpdateForm/UpdatedUserForm";
 
 const Users = () => {
     const dispatch = useDispatch();
