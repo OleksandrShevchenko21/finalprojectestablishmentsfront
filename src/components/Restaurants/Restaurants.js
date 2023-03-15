@@ -4,6 +4,7 @@ import {restaurantActions} from "../../redux";
 import {Restaurant} from "../Restaurant/Restaurant";
 import "./Restaurants.css";
 import {UpdateRestaurantForm} from "../UpdateForm/UpdatedRestaurantForm";
+import {NewReviewForm} from "../NewForm/NewReviewForm";
 
 const Restaurants = () => {
     const dispatch = useDispatch();
@@ -42,6 +43,17 @@ const Restaurants = () => {
         setSelectedRestaurant(restaurant);
         setFormValues(restaurant);
     };
+    const handleAddReview = (restaurantId, newReview) => {
+
+        // setFormValues(null);
+        // setShowUpdateForm(true);
+        // setSelectedRestaurant(restaurant);
+        // setFormValues(restaurant);
+        // <NewReviewForm/>
+            dispatch(restaurantActions.addReview({ restaurantId, newReview }));
+
+
+    };
     useEffect(() => {
         dispatch(restaurantActions.getAllRestaurants())
     }, [])
@@ -64,7 +76,8 @@ const Restaurants = () => {
                 {Array.isArray(restaurants) ? (restaurants.map(restaurant =>
                         <Restaurant key={restaurant.id}
                                     restaurant={restaurant}
-                                    onEdit={handleEdit}/>)
+                                    onEdit={handleEdit}
+                                    addReview={handleAddReview}/>)
                 ) : (
                     <p>No restaurants found</p>
                 )}

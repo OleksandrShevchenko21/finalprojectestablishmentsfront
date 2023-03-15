@@ -5,8 +5,8 @@ import "./NewReviewForm.css"
 import {reviewActions} from "../../redux/slices/review.slice";
 
 
-const NewReviewForm = () => {
-
+const NewReviewForm = ({restaurant,addReview}) => {
+    console.log(restaurant);
     const dispatch = useDispatch();
 
     const {status, error} = useSelector(
@@ -28,6 +28,7 @@ const NewReviewForm = () => {
         console.log(jsonBody);
 
         dispatch(reviewActions.saveNewReview(newReview))
+        addReview(restaurant.id,newReview);
         // Reset form fields
         setComment('');
         setRating('');
