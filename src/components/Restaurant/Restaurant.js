@@ -1,13 +1,17 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {restaurantActions} from "../../redux";
 import {UpdateRestaurantForm} from "../UpdateForm/UpdatedRestaurantForm";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Restaurants} from "../Restaurants/Restaurants";
 import "./Restaurant.css"
+import {Reviews} from "../Reviews/Reviews";
+import {reviewActions} from "../../redux/slices/review.slice";
+import {NewReviewForm} from "../NewForm/NewReviewForm";
 
-const Restaurant = ({restaurant, onEdit, addReview}) => {
+const Restaurant = ({restaurant, onEdit,getReviews}) => {
     const dispatch = useDispatch();
-    // const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [showAddReviewForm, setShowAddReviewForm] = useState(false);
+
     const {
         id,
         restaurantName,
@@ -15,8 +19,14 @@ const Restaurant = ({restaurant, onEdit, addReview}) => {
         address,
         schedule,
         contacts,
-        averageCheck
+        averageCheck,
     } = restaurant
+
+    const handleAddReview = async (newReview) => {
+      await dispatch(reviewActions.saveNewReview(newReview)).then(() => {
+          setShowAddReviewForm(false);
+      });
+    };
 
     return (
         <div className={"restaurant-info-container"}>
@@ -30,6 +40,8 @@ const Restaurant = ({restaurant, onEdit, addReview}) => {
                 <div>contacts: {contacts}</div>
                 <div>averageCheck: {averageCheck}</div>
                 {/*<button onClick={()=>dispatch(restaurantActions.setCurrentRestaurant(restaurant))}>select</button>*/}
+
+                {/*<Reviews restaurant={restaurant}/>*/}
             </div>
             <div className={"restaurant-button-container"}>
 
@@ -42,9 +54,16 @@ const Restaurant = ({restaurant, onEdit, addReview}) => {
                     onClick={() => dispatch(restaurantActions.deleteRestaurantByID({id}))}>delete
                 </button>
                 <button onClick={() => onEdit(restaurant)}>Edit</button>
-                <button onClick={() => addReview(restaurant)}>add Review
-                </button>
+                <button onClick={() => getReviews(restaurant)}>see all reviews</button>
+                {/*<button onClick={() => addReview(restaurant)}>add Review</button>*/}
+                <button onClick={() => setShowAddReviewForm(true)}>Add Review</button>
+                {showAddReviewForm && (
+                    <NewReviewForm restaurant={restaurant} onSubmit={handleAddReview} />
+                )}
+
             </div>
+
+
         </div>
     );
 

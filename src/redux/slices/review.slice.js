@@ -25,6 +25,19 @@ const getAllReviews = createAsyncThunk(
 
     }
 );
+
+const getAllReviewsByRestaurant = createAsyncThunk(
+    'reviewSlice/getAllReviewsByRestaurant',
+    async (restaurantId, {rejectWithValue}) => {
+        try {
+            const {data} = await reviewService.getAllReviewsByRestaurant(restaurantId);
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
 const getReviewByID = createAsyncThunk(
     'reviewSlice/getReviewById',
     async ({id}, {rejectWithValue}) => {
@@ -45,7 +58,7 @@ const saveNewReview = createAsyncThunk(
         const jsonBody = JSON.stringify(newReview);
         try {
             const {data} = await reviewService.saveNewReview(newReview);
-            dispatch(getAllReviews());
+            // dispatch(getAllReviews());
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -98,6 +111,11 @@ const reviewSlice = createSlice({
         builder
             .addCase(getAllReviews.fulfilled, (state, action) => {
                 state.reviews = action.payload
+                // state.reviews = state.reviews.filter(rev)
+            })
+            .addCase(getAllReviewsByRestaurant.fulfilled, (state, action) => {
+                state.reviews = action.payload
+                // state.reviews = state.reviews.filter(rev)
             })
             .addCase(getReviewByID.fulfilled, (state, action) => {
                 state.oneReview = action.payload
@@ -134,6 +152,7 @@ const {
 
 const reviewActions = {
     getAllReviews,
+    getAllReviewsByRestaurant,
     setCurrentReview,
     getReviewByID,
     saveNewReview,

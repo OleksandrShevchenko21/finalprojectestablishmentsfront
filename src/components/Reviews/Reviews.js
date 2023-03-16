@@ -7,24 +7,28 @@ import {UpdateReviewForm} from "../UpdateForm/UpdatedReviewForm";
 
 
 const Reviews = () => {
+
+
     const dispatch = useDispatch();
-    const [showUpdateForm, setShowUpdateForm] = useState(false);
+    // const [id, setId] = useState(restaurantId);
+    const [showUpdateReviewForm, setShowUpdateReviewForm] = useState(false);
     const [selectedReview, setSelectedReview] = useState(null);
     const {reviews} = useSelector((state) => state.reviewReducer);
 
-    const initialFormValues = {
+    const initialFormReviewValues = {
 
         id: "",
         comment: "",
         rating: "",
-        averageCheck: ""
+        averageCheck: "",
+        restaurantId:""
 
     };
-    const [formValues, setFormValues] = useState(initialFormValues);
+    const [formReviewValues, setFormReviewValues] = useState(initialFormReviewValues);
     const resetForm = () => {
         setSelectedReview(null);
-        setShowUpdateForm(false);
-        setFormValues(initialFormValues);
+        setShowUpdateReviewForm(false);
+        setFormReviewValues(initialFormReviewValues);
     };
     const handleUpdate = async (id, updatedReview) => {
         await dispatch(reviewActions.updateReview({
@@ -34,24 +38,31 @@ const Reviews = () => {
         resetForm();
     };
 
+
     const handleEdit = (review) => {
 
         // setFormValues(null);
-        setShowUpdateForm(true);
+        setShowUpdateReviewForm(true);
         setSelectedReview(review);
-        setFormValues(review);
+        setFormReviewValues(review);
     };
-    useEffect(() => {
-        dispatch(reviewActions.getAllReviews())
-    }, [])
+
+    // useEffect(() => {
+
+    // console.log("restaurant prop:", restaurant);
+    //         dispatch(reviewActions.getAllReviews());
+            // dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
+    //
+    // }, []);
+
     return (
         <div>
             {selectedReview && (
                 <UpdateReviewForm
-                    formValues={formValues}
-                    setFormValues={setFormValues}
+                    formValues={formReviewValues}
+                    setFormValues={setFormReviewValues}
                     review={selectedReview}
-                    onUpdate={() => handleUpdate(selectedReview.id, formValues)}
+                    onUpdate={() => handleUpdate(selectedReview.id, formReviewValues)}
                     onClose={resetForm}
 
                 />
@@ -62,11 +73,17 @@ const Reviews = () => {
 
                 {Array.isArray(reviews) ? (reviews.map(review =>
                         <Review key={review.id}
-                              review={review}
-                              onEdit={handleEdit}/>)
+                                review={review}
+                                onEdit={handleEdit}
+
+                        />)
+
                 ) : (
                     <p>No reviews found</p>
                 )}
+            </div>
+            <div>
+
             </div>
         </div>
     );

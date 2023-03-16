@@ -5,7 +5,7 @@ import "./NewReviewForm.css"
 import {reviewActions} from "../../redux/slices/review.slice";
 
 
-const NewReviewForm = ({restaurant,addReview}) => {
+const NewReviewForm = ({restaurant, onSubmit}) => {
     console.log(restaurant);
     const dispatch = useDispatch();
 
@@ -15,11 +15,13 @@ const NewReviewForm = ({restaurant,addReview}) => {
     const [rating, setRating] = useState('');
     const [averageCheck, setAverageCheck] = useState('');
 
+
     const handleSubmit = (e) => {
         const newReview = {
             comment,
             rating,
-            averageCheck
+            averageCheck,
+            restaurantId:restaurant.id
 
         };
         e.preventDefault();
@@ -27,18 +29,21 @@ const NewReviewForm = ({restaurant,addReview}) => {
         const jsonBody = JSON.stringify(newReview);
         console.log(jsonBody);
 
-        dispatch(reviewActions.saveNewReview(newReview))
-        addReview(restaurant.id,newReview);
+       dispatch(reviewActions.saveNewReview(newReview))
+
+        // addReview(restaurant.id,newReview);
         // Reset form fields
         setComment('');
         setRating('');
         setAverageCheck('');
+        onSubmit && onSubmit();
+
 
     };
-
+        // setRestaurantId(restaurant.id)
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
+                    <div className="form-container">
                 <div className="singleForm-container">
                     <label>Comment:</label>
                     <input
@@ -63,6 +68,7 @@ const NewReviewForm = ({restaurant,addReview}) => {
                         onChange={(e) => setAverageCheck(e.target.value)}
                     />
                 </div>
+
 
                 <button type="submit">Add Review</button>
 

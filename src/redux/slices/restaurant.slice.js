@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {restaurantService} from "../../services";
+import {restaurantService, reviewService} from "../../services";
 
 const initialState = {
     restaurants: [],
@@ -8,6 +8,7 @@ const initialState = {
     error: null,
     oneRestaurant: null,
     newRestaurant: null,
+    reviews: []
 }
 
 const getAllRestaurants = createAsyncThunk(
@@ -15,6 +16,18 @@ const getAllRestaurants = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             const {data} = await restaurantService.getAllRestaurants();
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
+const getAllReviewsByRestaurant = createAsyncThunk(
+    'restaurantSlice/getAllReviewsByRestaurant',
+    async ({restaurantId}, {rejectWithValue}) => {
+        try {
+            const {data} = await reviewService.getAllReviewsByRestaurant(restaurantId);
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -96,6 +109,9 @@ const restaurantSlice = createSlice({
             .addCase(getAllRestaurants.fulfilled, (state, action) => {
                 state.restaurants = action.payload
             })
+            .addCase(getAllReviewsByRestaurant.fulfilled, (state, action) => {
+                state.reviews = action.payload
+            })
             .addCase(getRestaurantByID.fulfilled, (state, action) => {
                 state.oneRestaurant = action.payload
             })
@@ -131,6 +147,7 @@ const {
 
 const restaurantActions = {
     getAllRestaurants,
+    getAllReviewsByRestaurant,
     setCurrentRestaurant,
     getRestaurantByID,
     saveNewRestaurant,

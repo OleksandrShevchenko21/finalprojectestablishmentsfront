@@ -10,7 +10,8 @@ const Review = ({review, onEdit}) =>{
         id,
         comment,
         rating,
-        averageCheck
+        averageCheck,
+        restaurantId
     } = review
 
     return (
@@ -19,10 +20,11 @@ const Review = ({review, onEdit}) =>{
             <div>comment: {comment}</div>
             <div>rating: {rating}</div>
             <div>averageCheck: {averageCheck}</div>
+            <div>restaurantId: {restaurantId}</div>
 
-            <button
-                onClick={() => dispatch(reviewActions.getReviewByID({id}))}>Select Review
-            </button>
+            {/*<button*/}
+            {/*    onClick={() => dispatch(reviewActions.getReviewByID({id}))}>Select Review*/}
+            {/*</button>*/}
             {/*<button onClick={()=>dispatch(restaurantActions.saveRestaurantByID({id}))}>add</button>*/}
             <button onClick={() => dispatch(reviewActions.deleteReviewByID({id}))}>delete</button>
             <button onClick={() => onEdit(review)}>Edit</button>
