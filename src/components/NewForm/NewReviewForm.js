@@ -31,8 +31,6 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
 
        dispatch(reviewActions.saveNewReview(newReview))
 
-        // addReview(restaurant.id,newReview);
-        // Reset form fields
         setComment('');
         setRating('');
         setAverageCheck('');

@@ -42,7 +42,14 @@ const Restaurants = () => {
     const [formRestaurantValues, setFormRestaurantValues] = useState(initialFormRestaurantValues);
     const [formReviewValues, setFormReviewValues] = useState(initialFormReviewValues);
 
-    const [showAddReviewForm, setShowAddReviewForm] = useState(true);
+    const [minRating, setMinRating] = useState(0);
+
+    const [reset, setReset] = useState(false);
+    const [restaurantsByRating, setRestaurantsByRating] = useState(false);
+    const [restaurantsByNameAsc, setRestaurantsByNameAsc] = useState(false);
+    const [restaurantsByNameDesc, setRestaurantsByNameDesc] = useState(false);
+    const [restaurantsByRatingGreaterThanEqual, setRestaurantsByRatingGreaterThanEqual] = useState(false);
+
     const resetForm = () => {
         setSelectedRestaurant(null);
         setSelectedReview(null);
@@ -68,15 +75,71 @@ const Restaurants = () => {
         setFormRestaurantValues(restaurant);
     };
 
-    const handleGetReview = async (restaurant) => {
+    const handleReset = () => {
+        setReset(true);
+        setRestaurantsByRating(false);
+        setRestaurantsByNameAsc(false);
+        setRestaurantsByNameDesc(false);
+        setRestaurantsByRatingGreaterThanEqual(false);
+    }
+    const handleByRating = () => {
+        setReset(true);
+        setReset(false);
+        setRestaurantsByRating(true);
+    }
+    const handleByNameAsc = () => {
+        setReset(true);
+        setReset(false);
+        setRestaurantsByNameAsc(true);
+    }
+    const handleByNameDesc = () => {
+        setReset(true);
+        setReset(false);
+        setRestaurantsByNameDesc(true);
+    }
+    const handleByRatingGreaterThanEqual = () => {
+        setReset(true);
+        setReset(false);
+
+        setRestaurantsByRatingGreaterThanEqual(true);
+    }
+
+    const handleGetReview = async ({restaurant = {}}) => {
         console.log(restaurant);
         await dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
     };
 
     useEffect(() => {
-        dispatch(restaurantActions.getAllRestaurants())
+            if (restaurantsByRating) {
+                dispatch(restaurantActions.getRestaurantsByRating())
+            } else if (restaurantsByNameAsc) {
+                dispatch(restaurantActions.getRestaurantsByNameAsc())
+            } else if (restaurantsByNameDesc) {
+                dispatch(restaurantActions.getRestaurantsByNameDesc())
+            } else if (restaurantsByRatingGreaterThanEqual) {
+                // setRestaurantsByRatingGreaterThanEqual(false)
+                dispatch(restaurantActions.getRestaurantsByRatingGreaterThanEqual(minRating))
+                // setMinRating('');
+            } else if (reset) {
+                dispatch(restaurantActions.getAllRestaurants())
+            } else {
+                dispatch(restaurantActions.getAllRestaurants())
+            }
 
-    }, [])
+        }
+        ,
+        [reset, restaurantsByRating, restaurantsByNameAsc, restaurantsByNameDesc,restaurantsByRatingGreaterThanEqual,minRating]
+    )
+
+    // ------------------------------------------------------------
+    // ------------------------------------------------------------
+    // useEffect(() => {
+    //
+    //     dispatch(restaurantActions.getRestaurantsByNameDesc())
+    //     //     dispatch(restaurantActions.getAllRestaurants())
+    //
+    // }  , [restaurantsByNameDesc, restaurantsByNameAsc]
+    //  )
 
     return (
         <div>
@@ -91,7 +154,43 @@ const Restaurants = () => {
                 />
 
             )}
-            <h4>Restaurants:</h4>
+            <div className={"sortButton"}>
+                <h4>Restaurants:</h4>
+                <button className={"button"} onClick={handleReset}>reset
+                </button>
+                <button className={"button"} onClick={() => {
+                    handleReset();
+                    handleByRating()
+                }}>sort by rating
+                </button>
+                <button className={"button"} onClick={() => {
+                    handleReset();
+                    handleByNameAsc()
+                }}>sort by name asc
+                </button>
+                <button className={"button"} onClick={() => {
+                    handleReset();
+                    handleByNameDesc()
+                }}>sort by name desc
+                </button>
+                <div className={"buttonWithValue"}>
+                    <button className={"button"} onClick={() => {
+                        handleReset();
+                        handleByRatingGreaterThanEqual()
+                    }}>Rating Greater Than Equal
+                    </button>
+                    <div>
+                        {/*<label htmlFor="min-rating-input">Minimum*/}
+                        {/*    rating:</label>*/}
+                        <input
+                            type="number"
+                            value={minRating}
+                            onChange={(e) => setMinRating(e.target.value)}
+                            // placeholder="Enter minimum rating"
+                        />
+                    </div>
+                </div>
+            </div>
             <div className="restaurants-container">
 
                 {Array.isArray(restaurants) ? (restaurants.map(restaurant =>
@@ -99,7 +198,7 @@ const Restaurants = () => {
                                     restaurant={restaurant}
                             // review={review}
                                     onEdit={handleEdit}
-                                    getReviews={handleGetReview}
+                            // getReviews={handleGetReview}
                         />)
                 ) : (
                     <p>No restaurants found</p>
@@ -108,5 +207,6 @@ const Restaurants = () => {
 
         </div>
     );
-};
+
+}
 export {Restaurants};

@@ -3,3 +3,16 @@
     flex-direction: row;
     margin: 20px;
 }
+.sortButton{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+.button{
+    margin: 10px;
+    width: 100px;
+}
+.buttonWithValue{
+    margin: 10px;
+    width: 100px;
+}

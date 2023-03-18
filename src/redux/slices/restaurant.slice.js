@@ -1,4 +1,8 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {
+    createAsyncThunk,
+    createSlice,
+    isRejectedWithValue
+} from "@reduxjs/toolkit";
 import {restaurantService, reviewService} from "../../services";
 
 const initialState = {
@@ -8,7 +12,7 @@ const initialState = {
     error: null,
     oneRestaurant: null,
     newRestaurant: null,
-    reviews: []
+    // reviewsByRestaurant: {}
 }
 
 const getAllRestaurants = createAsyncThunk(
@@ -23,21 +27,21 @@ const getAllRestaurants = createAsyncThunk(
 
     }
 );
-const getAllReviewsByRestaurant = createAsyncThunk(
-    'restaurantSlice/getAllReviewsByRestaurant',
-    async ({restaurantId}, {rejectWithValue}) => {
-        try {
-            const {data} = await reviewService.getAllReviewsByRestaurant(restaurantId);
-            return data
-        } catch (e) {
-            return rejectWithValue(e.response.data)
-        }
-
-    }
-);
+// const getAllReviewsByRestaurant = createAsyncThunk(
+//     'restaurantSlice/getAllReviewsByRestaurant',
+//     async (id, {rejectWithValue}) => {
+//         try {
+//             const {data} = await reviewService.getAllReviewsByRestaurant(id);
+//             return {id, data}
+//         } catch (e) {
+//             return rejectWithValue(e.response.data)
+//         }
+//
+//     }
+// );
 const getRestaurantByID = createAsyncThunk(
     'restaurantSlice/getRestaurantById',
-    async ({id}, {rejectWithValue}) => {
+    async (id, {rejectWithValue}) => {
         try {
             const {data} = await restaurantService.getRestaurantById(id);
             return data;
@@ -93,6 +97,56 @@ const deleteRestaurantByID = createAsyncThunk(
         }
     }
 );
+const getRestaurantsByRating = createAsyncThunk(
+    'restaurantSlice/getRestaurantsByRating',
+    async (_, {rejectWithValue}) => {
+        try {
+            const {data} = await restaurantService.getRestaurantsByRating();
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
+const getRestaurantsByNameAsc = createAsyncThunk(
+    'restaurantSlice/getRestaurantsByNameAsc',
+    async (_, {rejectWithValue}) => {
+        try {
+            const {data} = await restaurantService.getRestaurantsByNameAsc();
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
+const getRestaurantsByNameDesc = createAsyncThunk(
+    'restaurantSlice/getRestaurantsByNameDesc',
+    async (_, {rejectWithValue}) => {
+        try {
+            const {data} = await restaurantService.getRestaurantsByNameDesc();
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
+
+const getRestaurantsByRatingGreaterThanEqual = createAsyncThunk(
+    'restaurantSlice/getRestaurantsByRatingGreaterThanEqual',
+    async (minRating, {rejectWithValue}) => {
+        try {
+            const {data} = await restaurantService.getRestaurantsByRatingGreaterThanEqual(minRating);
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
+
 const restaurantSlice = createSlice({
     name: 'restaurantSlice',
     initialState,
@@ -103,22 +157,21 @@ const restaurantSlice = createSlice({
         removeRestaurantError: (state, action) => {
             state.error = action.payload;
         },
+        // setReviewsByRestaurant: (state, action) => {
+        // state.reviewsByRestaurant = { ...state.reviewsByRestaurant, [action.payload.id]: action.payload.reviews };
     },
     extraReducers: (builder) =>
         builder
             .addCase(getAllRestaurants.fulfilled, (state, action) => {
                 state.restaurants = action.payload
             })
-            .addCase(getAllReviewsByRestaurant.fulfilled, (state, action) => {
-                state.reviews = action.payload
-            })
+
             .addCase(getRestaurantByID.fulfilled, (state, action) => {
                 state.oneRestaurant = action.payload
             })
+
             .addCase(deleteRestaurantByID.fulfilled, (state, action) => {
-                // state.restaurants = state.restaurants.filter(
-                //     (restaurant) => restaurant.id !== action.payload.id
-                // );
+
             })
             .addCase(saveNewRestaurant.fulfilled, (state, action) => {
                 state.status = 'succeeded';
@@ -137,8 +190,22 @@ const restaurantSlice = createSlice({
                 })
 
             })
+            .addCase(getRestaurantsByRating.fulfilled, (state, action) => {
+                state.restaurants = action.payload
+            })
 
+            .addCase(getRestaurantsByNameAsc.fulfilled, (state, action) => {
+                state.restaurants = action.payload
+            })
 
+            .addCase(getRestaurantsByNameDesc.fulfilled, (state, action) => {
+                state.restaurants = action.payload
+            })
+            .addCase(getRestaurantsByRatingGreaterThanEqual.fulfilled, (state, action) => {
+                state.restaurants = action.payload
+            })
+
+// }
 });
 const {
     reducer: restaurantReducer,
@@ -147,12 +214,17 @@ const {
 
 const restaurantActions = {
     getAllRestaurants,
-    getAllReviewsByRestaurant,
+    // getAllReviewsByRestaurant,
     setCurrentRestaurant,
     getRestaurantByID,
     saveNewRestaurant,
     deleteRestaurantByID,
-    updateRestaurant
+    updateRestaurant,
+
+    getRestaurantsByRating,
+    getRestaurantsByNameAsc,
+    getRestaurantsByNameDesc,
+    getRestaurantsByRatingGreaterThanEqual
 }
 export {
     restaurantReducer,

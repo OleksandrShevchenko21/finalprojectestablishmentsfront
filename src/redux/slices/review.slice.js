@@ -2,15 +2,15 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {reviewService} from "../../services";
 
 
-
-
 const initialState = {
     reviews: [],
+    reviewsByRestaurant: [],
     currentReview: null,
     loading: false,
     error: null,
     oneReview: null,
     newReview: null,
+    currentRestaurantId: null,
 }
 
 const getAllReviews = createAsyncThunk(
@@ -58,7 +58,7 @@ const saveNewReview = createAsyncThunk(
         const jsonBody = JSON.stringify(newReview);
         try {
             const {data} = await reviewService.saveNewReview(newReview);
-            // dispatch(getAllReviews());
+            dispatch(getAllReviewsByRestaurant(newReview.restaurantId));
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -76,7 +76,7 @@ const updateReview = createAsyncThunk(
         try {
 
             const {data} = await reviewService.updateReview(id, updatedReview);
-            dispatch(getAllReviews());
+            dispatch(getAllReviewsByRestaurant(updatedReview.restaurantId));
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data);
@@ -96,6 +96,8 @@ const deleteReviewByID = createAsyncThunk(
         }
     }
 );
+
+
 const reviewSlice = createSlice({
     name: 'reviewSlice',
     initialState,
@@ -106,6 +108,18 @@ const reviewSlice = createSlice({
         removeReviewError: (state, action) => {
             state.error = action.payload;
         },
+        clearReviews: (state) => {
+
+            state.reviews = [];
+
+        },
+        setCurrentRestaurantId: (state, action) => {
+            state.currentRestaurantId = action.payload;
+        },
+        // getAllReviewsByRestaurantSuccess: (state, action) => {
+        //     const {restaurantId, reviews} = action.payload;
+        //     state.reviewsByRestaurant[restaurantId] = reviews;
+        // },
     },
     extraReducers: (builder) =>
         builder
@@ -114,8 +128,22 @@ const reviewSlice = createSlice({
                 // state.reviews = state.reviews.filter(rev)
             })
             .addCase(getAllReviewsByRestaurant.fulfilled, (state, action) => {
+                // const {restaurantId, reviews} = action.payload;
+                // if (reviews) {
+                //     state.reviewsByRestaurant[restaurantId] = reviews;
+                // } else {
+                //     state.reviewsByRestaurant[restaurantId] = [];
+                // }
+                // state.reviewsByRestaurant[restaurantId] = action.payload;
+                // state.reviewsByRestaurant.push(action.payload);
                 state.reviews = action.payload
-                // state.reviews = state.reviews.filter(rev)
+                state.reviewsByRestaurant = state.reviews.filter((review) => {
+                    if (review.restaurantId === action.payload.restaurantId) {
+                        return action.payload;
+                    } else {
+                        return null;
+                    }
+            })
             })
             .addCase(getReviewByID.fulfilled, (state, action) => {
                 state.oneReview = action.payload
@@ -147,7 +175,12 @@ const reviewSlice = createSlice({
 });
 const {
     reducer: reviewReducer,
-    actions: {setCurrentReview, removeReviewSuccess,}
+    actions: {
+        setCurrentReview,
+        removeReviewSuccess,
+        clearReviews,
+        setCurrentRestaurantId
+    }
 } = reviewSlice
 
 const reviewActions = {
@@ -157,7 +190,7 @@ const reviewActions = {
     getReviewByID,
     saveNewReview,
     deleteReviewByID,
-    updateReview
+    updateReview, clearReviews, setCurrentRestaurantId
 }
 export {
     reviewReducer,

@@ -4,9 +4,10 @@ import {reviewActions} from "../../redux/slices/review.slice";
 import {Review} from "../Review/Review";
 import "./Reviews.css"
 import {UpdateReviewForm} from "../UpdateForm/UpdatedReviewForm";
+import {restaurantActions} from "../../redux";
 
 
-const Reviews = () => {
+const Reviews = ({restaurant = {}}) => {
 
 
     const dispatch = useDispatch();
@@ -15,6 +16,9 @@ const Reviews = () => {
     const [selectedReview, setSelectedReview] = useState(null);
     const {reviews} = useSelector((state) => state.reviewReducer);
 
+
+
+    console.log("restaurant prop:", restaurant.id);
     const initialFormReviewValues = {
 
         id: "",
@@ -48,12 +52,11 @@ const Reviews = () => {
     };
 
     // useEffect(() => {
-
-    // console.log("restaurant prop:", restaurant);
-    //         dispatch(reviewActions.getAllReviews());
-            // dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
-    //
-    // }, []);
+    //     dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
+        // return () => {
+        //     dispatch(reviewActions.clearReviews());
+        // };
+    // }, [dispatch, restaurant.id]);
 
     return (
         <div>

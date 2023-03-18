@@ -8,9 +8,14 @@ import {Reviews} from "../Reviews/Reviews";
 import {reviewActions} from "../../redux/slices/review.slice";
 import {NewReviewForm} from "../NewForm/NewReviewForm";
 
-const Restaurant = ({restaurant, onEdit,getReviews}) => {
+const Restaurant = ({restaurant = {}, onEdit, match}) => {
     const dispatch = useDispatch();
     const [showAddReviewForm, setShowAddReviewForm] = useState(false);
+
+    const [showAllReviews, setShowAllReviews] = useState(false);
+    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+    const [currentRestaurantId, setCurrentRestaurantId] = useState(null);
+
 
     const {
         id,
@@ -20,13 +25,33 @@ const Restaurant = ({restaurant, onEdit,getReviews}) => {
         schedule,
         contacts,
         averageCheck,
-    } = restaurant
 
-    const handleAddReview = async (newReview) => {
-      await dispatch(reviewActions.saveNewReview(newReview)).then(() => {
-          setShowAddReviewForm(false);
-      });
+    } = restaurant
+    const{reviews:data}=useSelector(state=>state.reviewReducer)
+
+
+    const handleSelectRestaurant = () => {
+        // setShowAllReviews(false);
+        dispatch(restaurantActions.getRestaurantByID(id));
+        setSelectedRestaurant(restaurant);
     };
+
+    const handleGetReview = async (restaurant) => {
+
+            await dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
+
+    };
+    const handleAddReview = async () => {
+        setShowAddReviewForm(false);
+
+    };
+
+    useEffect(() => {
+        // Clear reviews data in the Redux store when a new restaurant is selected
+        if (restaurant.id !== null && restaurant.id !== id) {
+            dispatch(reviewActions.clearReviews());
+        }
+    }, [dispatch, id]);
 
     return (
         <div className={"restaurant-info-container"}>
@@ -44,21 +69,31 @@ const Restaurant = ({restaurant, onEdit,getReviews}) => {
                 {/*<Reviews restaurant={restaurant}/>*/}
             </div>
             <div className={"restaurant-button-container"}>
-
-                <button
-                    onClick={() => dispatch(restaurantActions.getRestaurantByID({id}))}>Select
-                    Restaurant
+                <button onClick={handleSelectRestaurant}>Select Restaurant
                 </button>
-                {/*<button onClick={()=>dispatch(restaurantActions.saveRestaurantByID({id}))}>add</button>*/}
+
                 <button
                     onClick={() => dispatch(restaurantActions.deleteRestaurantByID({id}))}>delete
                 </button>
                 <button onClick={() => onEdit(restaurant)}>Edit</button>
-                <button onClick={() => getReviews(restaurant)}>see all reviews</button>
-                {/*<button onClick={() => addReview(restaurant)}>add Review</button>*/}
-                <button onClick={() => setShowAddReviewForm(true)}>Add Review</button>
+                {/*<button onClick={() => getReviews(restaurant)}>see all reviews</button>*/}
+
+                <button onClick={() => {
+                    setShowAllReviews(prevState => !prevState);
+                    handleGetReview(restaurant);
+                }}>
+                    {showAllReviews ? 'hide' : 'see reviews'}
+                </button>
+
+                <button
+                    onClick={() => setShowAddReviewForm(prevState => !prevState)}>
+                                 {showAddReviewForm ? 'Cancel' : 'Add Review'}
+                </button>
+                {showAllReviews && <Reviews restaurant={restaurant}/>}
+
                 {showAddReviewForm && (
-                    <NewReviewForm restaurant={restaurant} onSubmit={handleAddReview} />
+                    <NewReviewForm restaurant={restaurant}
+                                   onSubmit={handleAddReview}/>
                 )}
 
             </div>
