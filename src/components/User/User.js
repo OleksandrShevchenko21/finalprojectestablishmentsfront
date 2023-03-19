@@ -1,5 +1,4 @@
 import {useDispatch} from "react-redux";
-import {restaurantActions} from "../../redux";
 import {userActions} from "../../redux/slices/user.slice";
 
 const User = ({user, onEdit}) =>{

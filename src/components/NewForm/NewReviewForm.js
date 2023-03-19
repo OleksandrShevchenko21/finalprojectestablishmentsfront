@@ -30,6 +30,7 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
         console.log(jsonBody);
 
        dispatch(reviewActions.saveNewReview(newReview))
+        console.log(newReview);
 
         setComment('');
         setRating('');

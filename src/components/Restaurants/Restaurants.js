@@ -169,8 +169,6 @@ const Restaurants = () => {
                 } else {
                     dispatch(restaurantActions.getRestaurantsByPublishDateDesc())
                 }
-            // } else if (restaurantsFindByName) {
-            //     dispatch(restaurantActions.getRestaurantsFindByName(restaurantName))
 
             } else if (reset) {
                 dispatch(restaurantActions.getAllRestaurants())
@@ -308,24 +306,6 @@ const Restaurants = () => {
 
                 </div>
 
-                {/*<div className={"buttonWithValue"}>*/}
-
-                {/*    <button className={"button"} onClick={() => {*/}
-                {/*        handleReset();*/}
-                {/*        handleFindByName()*/}
-                {/*    }}>Find*/}
-                {/*    </button>*/}
-
-                {/*    <div>*/}
-                {/*        <input*/}
-                {/*            type="text"*/}
-                {/*            value={restaurantName}*/}
-                {/*            onChange={(e) => setRestaurantName(e.target.value)}*/}
-                {/*            placeholder="Enter the name"*/}
-                {/*        />*/}
-                {/*    </div>*/}
-
-                {/*</div>*/}
                 <div className="searchBar">
 
                     <form onSubmit={submitHandler}>
@@ -333,11 +313,7 @@ const Restaurants = () => {
                                value={restaurantName}
                                placeholder="Search Restaurant"
                                onChange={(e) =>setRestaurantName(e.target.value)}/>
-                        {/*<button type="submit">*/}
-                        {/*    /!*<FaSearch className="fa fa-search">*!/*/}
-                        {/*    /!*</FaSearch> *!/*/}
-                        {/*    find*/}
-                        {/*</button>*/}
+
                     </form>
 
                 </div>

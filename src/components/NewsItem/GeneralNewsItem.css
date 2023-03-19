@@ -1,0 +1,14 @@
+.generalNewsItem-info-container{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 500px;
+}
+.generalNewsItem-button-container{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}

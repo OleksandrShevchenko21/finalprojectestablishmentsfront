@@ -7,10 +7,12 @@ import "./Restaurant.css"
 import {Reviews} from "../Reviews/Reviews";
 import {reviewActions} from "../../redux/slices/review.slice";
 import {NewReviewForm} from "../NewForm/NewReviewForm";
+import {NewGeneralNewsForm} from "../NewForm/NewGeneralNewsForm";
 
 const Restaurant = ({restaurant = {}, onEdit}) => {
     const dispatch = useDispatch();
     const [showAddReviewForm, setShowAddReviewForm] = useState(false);
+    const [showAddGeneralNewsForm, setShowAddGeneralNewsForm] = useState(false);
 
     const [showAllReviews, setShowAllReviews] = useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -28,7 +30,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
         dateOfPublish
 
     } = restaurant
-    const{reviews:data}=useSelector(state=>state.reviewReducer)
+    const {reviews: data} = useSelector(state => state.reviewReducer)
 
 
     const handleSelectRestaurant = () => {
@@ -38,13 +40,13 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
     };
 
     const handleGetReview = async (restaurant) => {
-
-            await dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
-
+        await dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
     };
     const handleAddReview = async () => {
         setShowAddReviewForm(false);
-
+    };
+    const handleAddGeneralNews = async () => {
+        setShowAddGeneralNewsForm(false);
     };
 
     // useEffect(() => {
@@ -89,13 +91,22 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
 
                 <button
                     onClick={() => setShowAddReviewForm(prevState => !prevState)}>
-                                 {showAddReviewForm ? 'Cancel' : 'Add Review'}
+                    {showAddReviewForm ? 'Cancel' : 'Add Review'}
                 </button>
                 {showAllReviews && <Reviews restaurant={restaurant}/>}
 
+                <button
+                    onClick={() => setShowAddGeneralNewsForm(prevState => !prevState)}>
+                    {showAddGeneralNewsForm ? 'Cancel' : 'Add General news'}
+                </button>
                 {showAddReviewForm && (
                     <NewReviewForm restaurant={restaurant}
                                    onSubmit={handleAddReview}/>
+
+                )}
+                {showAddGeneralNewsForm && (
+                <NewGeneralNewsForm restaurant={restaurant}
+                                    onSubmit={handleAddGeneralNews}/>
                 )}
 
             </div>
