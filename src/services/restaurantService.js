@@ -14,6 +14,11 @@ const restaurantService = {
     getRestaurantsByNameAsc:()=>axiosService.get(`${urls.restaurants}/sorted-by-order-by-name/asc`),
     getRestaurantsByNameDesc:()=>axiosService.get(`${urls.restaurants}/sorted-by-order-by-name/desc`),
     getRestaurantsByRatingGreaterThanEqual:(minRating)=>axiosService.get(`${urls.restaurants}/filter/average-rating?minRating=${minRating}`),
+    getRestaurantsByType:(type)=>axiosService.get(`${urls.restaurants}/filter/type?type=${type}`),
+    getRestaurantsByAverageCheck:(minCheck,maxCheck)=>axiosService.get(`${urls.restaurants}/filter/average-check/between?minAvgCheck=${minCheck}&maxAvgCheck=${maxCheck}`),
+    getRestaurantsByPublishDateAsc:()=>axiosService.get(`${urls.restaurants}/sorted-by-date-of-publish=asc`),
+    getRestaurantsByPublishDateDesc:()=>axiosService.get(`${urls.restaurants}/sorted-by-date-of-publish=desc`),
+    getRestaurantsFindByName:(restaurantName)=>axiosService.get(`${urls.restaurants}/filter/name?restaurantName=${restaurantName}`)
 }
 export {
     restaurantService

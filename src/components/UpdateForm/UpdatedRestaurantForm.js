@@ -16,6 +16,7 @@ const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
     const [schedule, setSchedule] = useState(restaurant.schedule);
     const [contacts, setContacts] = useState(restaurant.contacts);
     const [averageCheck, setAverageCheck] = useState(restaurant.averageCheck);
+    const [dateOfPublish, setDateOfPublish] = useState(restaurant.dateOfPublish);
 
     useEffect(() => {
         setId(restaurant.id);
@@ -25,6 +26,7 @@ const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
         setSchedule(restaurant.schedule);
         setContacts(restaurant.contacts);
         setAverageCheck(restaurant.averageCheck);
+        setDateOfPublish(restaurant.dateOfPublish);
     }, [restaurant]);
 
 
@@ -39,9 +41,8 @@ const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
             schedule,
             contacts,
             averageCheck,
+            dateOfPublish
         };
-
-        const jsonBody = JSON.stringify(updatedRestaurant);
 
         dispatch(restaurantActions.updateRestaurant({id, updatedRestaurant}));
         onUpdate(id, updatedRestaurant);
@@ -105,6 +106,13 @@ const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
                         type="text"
                         value={averageCheck}
                         onChange={(e) => setAverageCheck(e.target.value)}/>
+                </div>
+                <div>
+                    <label>Date of publish:</label>
+                    <input
+                        type="text"
+                        value={dateOfPublish}
+                        onChange={(e) => setDateOfPublish(e.target.value)}/>
                 </div>
                 <button type="submit">update</button>
 

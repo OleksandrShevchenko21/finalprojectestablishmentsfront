@@ -8,7 +8,7 @@ import {Reviews} from "../Reviews/Reviews";
 import {reviewActions} from "../../redux/slices/review.slice";
 import {NewReviewForm} from "../NewForm/NewReviewForm";
 
-const Restaurant = ({restaurant = {}, onEdit, match}) => {
+const Restaurant = ({restaurant = {}, onEdit}) => {
     const dispatch = useDispatch();
     const [showAddReviewForm, setShowAddReviewForm] = useState(false);
 
@@ -25,6 +25,7 @@ const Restaurant = ({restaurant = {}, onEdit, match}) => {
         schedule,
         contacts,
         averageCheck,
+        dateOfPublish
 
     } = restaurant
     const{reviews:data}=useSelector(state=>state.reviewReducer)
@@ -46,12 +47,12 @@ const Restaurant = ({restaurant = {}, onEdit, match}) => {
 
     };
 
-    useEffect(() => {
-        // Clear reviews data in the Redux store when a new restaurant is selected
-        if (restaurant.id !== null && restaurant.id !== id) {
-            dispatch(reviewActions.clearReviews());
-        }
-    }, [dispatch, id]);
+    // useEffect(() => {
+    //     // Clear reviews data in the Redux store when a new restaurant is selected
+    //     if (restaurant.id !== null && restaurant.id !== id) {
+    //         dispatch(reviewActions.clearReviews());
+    //     }
+    // }, [dispatch, id]);
 
     return (
         <div className={"restaurant-info-container"}>
@@ -64,6 +65,7 @@ const Restaurant = ({restaurant = {}, onEdit, match}) => {
                 <div>schedule: {schedule}</div>
                 <div>contacts: {contacts}</div>
                 <div>averageCheck: {averageCheck}</div>
+                <div>date of publish: {dateOfPublish}</div>
                 {/*<button onClick={()=>dispatch(restaurantActions.setCurrentRestaurant(restaurant))}>select</button>*/}
 
                 {/*<Reviews restaurant={restaurant}/>*/}
