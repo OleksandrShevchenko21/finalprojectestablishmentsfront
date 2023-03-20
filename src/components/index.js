@@ -15,3 +15,7 @@ export * from './News/PromotionNews';
 export * from './News/EventNews';
 export * from './NewForm/NewGeneralNewsForm';
 export * from './UpdateForm/UpdatedGeneralNewsForm';
+export * from './Booking/Booking';
+export * from './Bookings/Bookings';
+export * from './NewForm/NewBookingForm';
+export * from './UpdateForm/UpdatedBookingForm';

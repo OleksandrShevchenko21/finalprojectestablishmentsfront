@@ -8,11 +8,17 @@ import {Reviews} from "../Reviews/Reviews";
 import {reviewActions} from "../../redux/slices/review.slice";
 import {NewReviewForm} from "../NewForm/NewReviewForm";
 import {NewGeneralNewsForm} from "../NewForm/NewGeneralNewsForm";
+import {NewPromotionNewsForm} from "../NewForm/NewPromotionNewsForm";
+import {NewEventNewsForm} from "../NewForm/NewEventNewsForm";
+import {NewBookingForm} from "../NewForm/NewBookingForm";
 
 const Restaurant = ({restaurant = {}, onEdit}) => {
     const dispatch = useDispatch();
     const [showAddReviewForm, setShowAddReviewForm] = useState(false);
     const [showAddGeneralNewsForm, setShowAddGeneralNewsForm] = useState(false);
+    const [showAddPromotionNewsForm, setShowAddPromotionNewsForm] = useState(false);
+    const [showAddEventNewsForm, setShowAddEventNewsForm] = useState(false);
+    const [showAddBookingForm, setShowAddBookingForm] = useState(false);
 
     const [showAllReviews, setShowAllReviews] = useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -47,6 +53,15 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
     };
     const handleAddGeneralNews = async () => {
         setShowAddGeneralNewsForm(false);
+    };
+    const handleAddPromotionNews = async () => {
+        setShowAddPromotionNewsForm(false);
+    };
+    const handleAddEventNews = async () => {
+        setShowAddEventNewsForm(false);
+    };
+    const handleAddBooking = async () => {
+        setShowAddBookingForm(false);
     };
 
     // useEffect(() => {
@@ -99,14 +114,45 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
                     onClick={() => setShowAddGeneralNewsForm(prevState => !prevState)}>
                     {showAddGeneralNewsForm ? 'Cancel' : 'Add General news'}
                 </button>
+
+                <button
+                    onClick={() => setShowAddPromotionNewsForm(prevState => !prevState)}>
+                    {showAddPromotionNewsForm ? 'Cancel' : 'Add Promotion news'}
+                </button>
+
+                <button
+                    onClick={() => setShowAddEventNewsForm(prevState => !prevState)}>
+                    {showAddEventNewsForm ? 'Cancel' : 'Add Event news'}
+                </button>
+
+                <button
+                    onClick={() => setShowAddBookingForm(prevState => !prevState)}>
+                    {showAddBookingForm ? 'Cancel' : 'Add Booking'}
+                </button>
+
                 {showAddReviewForm && (
                     <NewReviewForm restaurant={restaurant}
                                    onSubmit={handleAddReview}/>
 
                 )}
                 {showAddGeneralNewsForm && (
-                <NewGeneralNewsForm restaurant={restaurant}
-                                    onSubmit={handleAddGeneralNews}/>
+                    <NewGeneralNewsForm restaurant={restaurant}
+                                        onSubmit={handleAddGeneralNews}/>
+                )}
+
+                {showAddPromotionNewsForm && (
+                    <NewPromotionNewsForm restaurant={restaurant}
+                                          onSubmit={handleAddPromotionNews}/>
+                )}
+
+                {showAddEventNewsForm && (
+                    <NewEventNewsForm restaurant={restaurant}
+                                      onSubmit={handleAddEventNews}/>
+                )}
+
+                {showAddBookingForm && (
+                    <NewBookingForm restaurant={restaurant}
+                                      onSubmit={handleAddBooking}/>
                 )}
 
             </div>

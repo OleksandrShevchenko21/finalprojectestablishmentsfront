@@ -11,8 +11,8 @@ const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
         = useSelector((state) => state.reviewReducer);
     const [id, setId] = useState(review.id);
     const [comment, setComment] = useState(review.comment);
-    const [rating, setRating] = useState(review.password);
-    const [averageCheck, setAverageCheck] = useState(review.role);
+    const [rating, setRating] = useState(review.rating);
+    const [averageCheck, setAverageCheck] = useState(review.averageCheck);
 
 
     useEffect(() => {

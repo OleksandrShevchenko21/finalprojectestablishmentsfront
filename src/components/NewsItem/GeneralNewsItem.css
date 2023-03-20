@@ -12,3 +12,33 @@
     flex-direction: row;
     margin: 10px;
 }
+/*---------------------------------------------*/
+.promotionNewsItem-info-container{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 500px;
+}
+.promotionNewsItem-button-container{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+/*---------------------------------------------*/
+.eventNewsItem-info-container{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 500px;
+}
+.eventNewsItem-button-container{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}

@@ -6,7 +6,8 @@ const urls = {
     users:'/api/users',
     generalNews:'/api/news/general',
     promotionNews:'/api/news/promotion',
-    eventNews:'/api/news/event'
+    eventNews:'/api/news/event',
+    booking:'/api/booking'
 }
 export {
     baseURL,
