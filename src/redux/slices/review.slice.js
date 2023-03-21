@@ -53,18 +53,24 @@ const getReviewByID = createAsyncThunk(
 // SAVE-------------------------SAVE---------------------------SAVE-------------------------------
 // SAVE-------------------------SAVE---------------------------SAVE-------------------------------
 const saveNewReview = createAsyncThunk(
-    'reviewSlice/saveNewReview',
-    async (newReview, {rejectWithValue, dispatch}) => {
-        const jsonBody = JSON.stringify(newReview);
-        try {
-            const {data} = await reviewService.saveNewReview(newReview);
-            dispatch(getAllReviewsByRestaurant(newReview.restaurantId));
-            return data;
-        } catch (e) {
-            return rejectWithValue(e.response.data)
+        'reviewSlice/saveNewReview',
+        async (newReview, {rejectWithValue, dispatch}) => {
+            try {
+                // const token = getState().auth.token;
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    throw new Error('User is not authorized');
+                }
+
+                const {data} = await reviewService.saveNewReview(newReview,token);
+                dispatch(getAllReviewsByRestaurant(newReview.restaurantId));
+                return data;
+            } catch (e) {
+                return rejectWithValue(e.response.data)
+            }
         }
-    }
-);
+    )
+;
 
 // UPDATE-------------------------UPDATE---------------------------UPDATE-------------------------------
 // UPDATE-------------------------UPDATE---------------------------UPDATE-------------------------------
@@ -143,7 +149,7 @@ const reviewSlice = createSlice({
                     } else {
                         return null;
                     }
-            })
+                })
             })
             .addCase(getReviewByID.fulfilled, (state, action) => {
                 state.oneReview = action.payload

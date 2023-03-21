@@ -1,5 +1,5 @@
 .users-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 20px;
 }

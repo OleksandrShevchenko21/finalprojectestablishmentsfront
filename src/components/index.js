@@ -19,3 +19,4 @@ export * from './Booking/Booking';
 export * from './Bookings/Bookings';
 export * from './NewForm/NewBookingForm';
 export * from './UpdateForm/UpdatedBookingForm';
+export * from './Pages/LoginPage';

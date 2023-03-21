@@ -55,7 +55,12 @@ const saveNewGeneralNews = createAsyncThunk(
     'newsSlice/saveNewGeneralNews',
     async (newGeneralNews, {rejectWithValue, dispatch}) => {
         try {
-            const {data} = await newsService.saveGeneralNews(newGeneralNews);
+            // const token = getState().auth.token;
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('User is not authorized');
+            }
+            const {data} = await newsService.saveGeneralNews(newGeneralNews,token);
             dispatch(getAllGeneralNews());
             return data;
         } catch (e) {

@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import "./NewReviewForm.css"
 import {reviewActions} from "../../redux/slices/review.slice";
+import jwt_decode from "jwt-decode";
+import {User} from "../User/User";
 
 
 const NewReviewForm = ({restaurant, onSubmit}) => {
@@ -14,6 +16,7 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState('');
     const [averageCheck, setAverageCheck] = useState('');
+    const [userName, setUserName] = useState(null);
 
 
     const handleSubmit = (e) => {
@@ -21,16 +24,16 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
             comment,
             rating,
             averageCheck,
-            restaurantId:restaurant.id
+            restaurantId: restaurant.id,
+            userName: userName
 
         };
         e.preventDefault();
 
         const jsonBody = JSON.stringify(newReview);
-        console.log(jsonBody);
 
-       dispatch(reviewActions.saveNewReview(newReview))
-        console.log(newReview);
+        dispatch(reviewActions.saveNewReview(newReview))
+
 
         setComment('');
         setRating('');
@@ -39,10 +42,27 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
 
 
     };
-        // setRestaurantId(restaurant.id)
+    // const token = localStorage.getItem("token");
+    // const tokenUserName = decodedToken.sub; // Assuming sub contains the user's name
+    // const user = User.findOne({ where: { name: tokenUserId } }); // Fetch user from database using name
+    // const tokenUserId = user.id; // Get the user's ID from the fetched user object
+
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            const decodedToken = jwt_decode(token);
+            const tokenUserName = decodedToken.sub; // Assuming sub contains the user's ID
+
+            setUserName(tokenUserName);
+        }
+    }, []);
+    console.log("userName: " + userName);
+    // console.log(token);
+
     return (
         <form onSubmit={handleSubmit}>
-                    <div className="form-container">
+            <div className="form-container">
                 <div className="singleForm-container">
                     <label>Comment:</label>
                     <input
