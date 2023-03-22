@@ -5,6 +5,7 @@ import "./NewReviewForm.css"
 import {reviewActions} from "../../redux/slices/review.slice";
 import jwt_decode from "jwt-decode";
 import {User} from "../User/User";
+import {restaurantActions} from "../../redux";
 
 
 const NewReviewForm = ({restaurant, onSubmit}) => {
@@ -34,7 +35,6 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
 
         dispatch(reviewActions.saveNewReview(newReview))
 
-
         setComment('');
         setRating('');
         setAverageCheck('');
@@ -42,17 +42,12 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
 
 
     };
-    // const token = localStorage.getItem("token");
-    // const tokenUserName = decodedToken.sub; // Assuming sub contains the user's name
-    // const user = User.findOne({ where: { name: tokenUserId } }); // Fetch user from database using name
-    // const tokenUserId = user.id; // Get the user's ID from the fetched user object
 
-
+    const token = localStorage.getItem("token");
     useEffect(() => {
-        const token = localStorage.getItem("token");
         if (token) {
             const decodedToken = jwt_decode(token);
-            const tokenUserName = decodedToken.sub; // Assuming sub contains the user's ID
+            const tokenUserName = decodedToken.sub;
 
             setUserName(tokenUserName);
         }
@@ -65,7 +60,7 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
             <div className="form-container">
                 <div className="singleForm-container">
                     <label>Comment:</label>
-                    <input
+                    <textarea
                         type="text"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}

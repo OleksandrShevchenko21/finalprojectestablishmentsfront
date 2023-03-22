@@ -1,5 +1,9 @@
 .promotionNews-container{
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    /*flex-wrap: wrap;*/
+    /*justify-content: flex-end;*/
+    margin: 2px;
+    border: 1px solid black;
+    /*width: 200px;*/
 }

@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {reviewActions} from "../../redux/slices/review.slice";
+import {restaurantActions} from "../../redux";
 
 
 const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
@@ -37,6 +38,7 @@ const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
         const jsonBody = JSON.stringify(updatedReview);
 
         dispatch(reviewActions.updateReview({id, updatedReview}));
+
         onUpdate(id, updatedReview);
 
     };
@@ -55,7 +57,7 @@ const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
                 </div>
                 <div>
                     <label>Comment:</label>
-                    <input
+                    <textarea
                         type="text"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}

@@ -1,0 +1,27 @@
+.main-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*width: 100vw;*/
+
+}
+.first-container{
+    /*display: flex;*/
+    /*flex-direction:column;*/
+    /*margin-top: 20px;*/
+}
+.second-container{
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.third-container{
+    display: flex;
+    flex-direction:column;
+
+
+
+    background: cornsilk;
+    /*width: 200px;*/
+}

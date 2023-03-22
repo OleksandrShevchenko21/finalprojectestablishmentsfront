@@ -1,13 +1,70 @@
-.restaurant-info-container{
+.restaurant-main-container {
     display: flex;
     flex-direction: row;
-    margin: 20px;
-    padding: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+    background: aquamarine;
+    /*padding: 20px;*/
     border: 1px solid black;
-    border-radius: 10px
+    /*border-radius: 10px;*/
+    width: 900px;
 }
-.restaurant-button-container{
+
+.restaurant-info-container {
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    /*margin: 20px;*/
+    /*padding: 20px;*/
+
 }
+
+.image-button-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.restaurant-image-container {
+    display: flex;
+    flex-direction: column;
+    background: beige;
+    width: 300px;
+    height: 150px;
+}
+
+.restaurant-10-container {
+    display: flex;
+    flex-direction: row;
+    /*width: 500px;*/
+}
+
+.restaurant-20-container {
+
+    /*width: 500px;*/
+
+}
+
+.restaurant-30-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 5px;
+    /*padding: 20px;*/
+
+}
+
+.restaurant-button-container {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+
+}
+.super-main{
+    display: flex;
+    flex-direction: column;
+}
+/*.info-button{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/

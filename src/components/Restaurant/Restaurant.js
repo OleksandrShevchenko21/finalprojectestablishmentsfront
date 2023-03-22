@@ -33,17 +33,18 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
         schedule,
         contacts,
         averageCheck,
-        dateOfPublish
+        dateOfPublish,
+        averageRating
 
     } = restaurant
     const {reviews: data} = useSelector(state => state.reviewReducer)
 
 
-    const handleSelectRestaurant = () => {
-        // setShowAllReviews(false);
-        dispatch(restaurantActions.getRestaurantByID(id));
-        setSelectedRestaurant(restaurant);
-    };
+    // const handleSelectRestaurant = () => {
+    //     // setShowAllReviews(false);
+    //     dispatch(restaurantActions.getRestaurantByID(id));
+    //     setSelectedRestaurant(restaurant);
+    // };
 
     const handleGetReview = async (restaurant) => {
         await dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
@@ -64,96 +65,121 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
         setShowAddBookingForm(false);
     };
 
-    // useEffect(() => {
-    //     // Clear reviews data in the Redux store when a new restaurant is selected
-    //     if (restaurant.id !== null && restaurant.id !== id) {
-    //         dispatch(reviewActions.clearReviews());
-    //     }
-    // }, [dispatch, id]);
-
     return (
-        <div className={"restaurant-info-container"}>
+        <div className="super-main">
+            <div className="restaurant-main-container">
+
+                <div className="image-button-container">
+                    <div className="restaurant-image-container">
+                        <div>image space</div>
+                    </div>
+                </div>
+
+
+                {/*<div className="info-button">*/}
+
+                <div className="restaurant-info-container">
+
+                    <div className="restaurant-10-container">
+                        <h3> {id}.</h3>
+                        <h3> {restaurantName}</h3>
+                    </div>
+                    <div className="restaurant-20-container">
+                        <div>Type: {type}</div>
+                        <div>Address: {address}</div>
+                        <div>Schedule: {schedule}</div>
+                        <div>Contacts: {contacts}</div>
+                    </div>
+                    <div className="restaurant-30-container">
+                        <div>averageCheck: {averageCheck}</div>
+                        <div>date of publish: {dateOfPublish}</div>
+                        <div>rating: {averageRating}</div>
+                    </div>
+                </div>
+                <div className={"restaurant-button-container"}>
+                    {/*<button onClick={handleSelectRestaurant}>Select Restaurant*/}
+                    {/*</button>*/}
+
+                    <button
+                        onClick={() => dispatch(restaurantActions.deleteRestaurantByID({id}))}>delete
+                    </button>
+                    <button onClick={() => onEdit(restaurant)}>Edit</button>
+                    {/*<button onClick={() => getReviews(restaurant)}>see all reviews</button>*/}
+
+                    <button onClick={() => {
+                        setShowAllReviews(prevState => !prevState);
+                        handleGetReview(restaurant);
+                    }}>
+                        {showAllReviews ? 'hide' : 'see reviews'}
+                    </button>
+
+                    <button
+                        onClick={() => setShowAddReviewForm(prevState => !prevState)}>
+                        {showAddReviewForm ? 'Cancel' : 'Add Review'}
+                    </button>
+
+                    <button
+                        onClick={() => setShowAddGeneralNewsForm(prevState => !prevState)}>
+                        {showAddGeneralNewsForm ? 'Cancel' : 'Add General news'}
+                    </button>
+
+                    <button
+                        onClick={() => setShowAddPromotionNewsForm(prevState => !prevState)}>
+                        {showAddPromotionNewsForm ? 'Cancel' : 'Add Promotion news'}
+                    </button>
+
+                    <button
+                        onClick={() => setShowAddEventNewsForm(prevState => !prevState)}>
+                        {showAddEventNewsForm ? 'Cancel' : 'Add Event news'}
+                    </button>
+
+                    <button
+                        onClick={() => setShowAddBookingForm(prevState => !prevState)}>
+                        {showAddBookingForm ? 'Cancel' : 'Add Booking'}
+                    </button>
+                </div>
+                {/*</div>*/}
+            </div>
             <div>
 
-                <div>id: {id}</div>
-                <div>name: {restaurantName}</div>
-                <div>type: {type}</div>
-                <div>address: {address}</div>
-                <div>schedule: {schedule}</div>
-                <div>contacts: {contacts}</div>
-                <div>averageCheck: {averageCheck}</div>
-                <div>date of publish: {dateOfPublish}</div>
-                {/*<button onClick={()=>dispatch(restaurantActions.setCurrentRestaurant(restaurant))}>select</button>*/}
+                {
+                    showAllReviews && <Reviews restaurant={restaurant}/>
+                }
 
-                {/*<Reviews restaurant={restaurant}/>*/}
-            </div>
-            <div className={"restaurant-button-container"}>
-                <button onClick={handleSelectRestaurant}>Select Restaurant
-                </button>
+                {
+                    showAddReviewForm && (
+                        <NewReviewForm restaurant={restaurant}
+                                       onSubmit={handleAddReview}/>
 
-                <button
-                    onClick={() => dispatch(restaurantActions.deleteRestaurantByID({id}))}>delete
-                </button>
-                <button onClick={() => onEdit(restaurant)}>Edit</button>
-                {/*<button onClick={() => getReviews(restaurant)}>see all reviews</button>*/}
+                    )
+                }
+                {
+                    showAddGeneralNewsForm && (
+                        <NewGeneralNewsForm restaurant={restaurant}
+                                            onSubmit={handleAddGeneralNews}/>
+                    )
+                }
 
-                <button onClick={() => {
-                    setShowAllReviews(prevState => !prevState);
-                    handleGetReview(restaurant);
-                }}>
-                    {showAllReviews ? 'hide' : 'see reviews'}
-                </button>
+                {
+                    showAddPromotionNewsForm && (
+                        <NewPromotionNewsForm restaurant={restaurant}
+                                              onSubmit={handleAddPromotionNews}/>
+                    )
+                }
 
-                <button
-                    onClick={() => setShowAddReviewForm(prevState => !prevState)}>
-                    {showAddReviewForm ? 'Cancel' : 'Add Review'}
-                </button>
-                {showAllReviews && <Reviews restaurant={restaurant}/>}
+                {
+                    showAddEventNewsForm && (
+                        <NewEventNewsForm restaurant={restaurant}
+                                          onSubmit={handleAddEventNews}/>
+                    )
+                }
 
-                <button
-                    onClick={() => setShowAddGeneralNewsForm(prevState => !prevState)}>
-                    {showAddGeneralNewsForm ? 'Cancel' : 'Add General news'}
-                </button>
-
-                <button
-                    onClick={() => setShowAddPromotionNewsForm(prevState => !prevState)}>
-                    {showAddPromotionNewsForm ? 'Cancel' : 'Add Promotion news'}
-                </button>
-
-                <button
-                    onClick={() => setShowAddEventNewsForm(prevState => !prevState)}>
-                    {showAddEventNewsForm ? 'Cancel' : 'Add Event news'}
-                </button>
-
-                <button
-                    onClick={() => setShowAddBookingForm(prevState => !prevState)}>
-                    {showAddBookingForm ? 'Cancel' : 'Add Booking'}
-                </button>
-
-                {showAddReviewForm && (
-                    <NewReviewForm restaurant={restaurant}
-                                   onSubmit={handleAddReview}/>
-
-                )}
-                {showAddGeneralNewsForm && (
-                    <NewGeneralNewsForm restaurant={restaurant}
-                                        onSubmit={handleAddGeneralNews}/>
-                )}
-
-                {showAddPromotionNewsForm && (
-                    <NewPromotionNewsForm restaurant={restaurant}
-                                          onSubmit={handleAddPromotionNews}/>
-                )}
-
-                {showAddEventNewsForm && (
-                    <NewEventNewsForm restaurant={restaurant}
-                                      onSubmit={handleAddEventNews}/>
-                )}
-
-                {showAddBookingForm && (
-                    <NewBookingForm restaurant={restaurant}
-                                      onSubmit={handleAddBooking}/>
-                )}
+                {
+                    showAddBookingForm && (
+                        <NewBookingForm restaurant={restaurant}
+                                        onSubmit={handleAddBooking}/>
+                    )
+                }
 
             </div>
 

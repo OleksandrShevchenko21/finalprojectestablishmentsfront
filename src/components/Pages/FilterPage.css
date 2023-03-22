@@ -1,0 +1,44 @@
+.sort-filter-main {
+    display: flex;
+    flex-direction: column;
+    background: cornsilk;
+}
+
+.single-button {
+    width: 150px;
+    margin: 10px;
+}
+
+.value-button-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    /*width: 20px;*/
+    /*background: #61dafb;*/
+}
+
+.value-button-container input {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: flex-end;*/
+    margin-left: 10px;
+    width: 60px;
+}
+.value-button-container button {
+    width: 60px;
+}
+
+.name-value-button-container {
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    border: 1px solid #282c34;
+    border-radius: 5px;
+}
+
+.name-value-button-container label {
+    margin-left: 5px;
+    align-items: center;
+    font-size: 13px
+
+}

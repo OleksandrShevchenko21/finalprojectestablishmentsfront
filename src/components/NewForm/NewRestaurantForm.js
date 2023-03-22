@@ -41,53 +41,59 @@ const NewRestaurantForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div className="singleForm-container">
-                    <label>Name:</label>
+            <div className="main-container">
+                <div className="restaurant-single-container">
+
                     <input
                         type="text"
                         value={restaurantName}
                         onChange={(e) => setRestaurantName(e.target.value)}
+                        placeholder="Enter name"
                     />
                 </div>
-                <div className="singleForm-container">
-                    <label>Type:</label>
+                <div className="restaurant-single-container">
+
                     <input
                         type="text"
                         value={type}
                         onChange={(e) => setType(e.target.value)}
+                        placeholder="Enter type"
                     />
                 </div>
-                <div className="singleForm-container">
-                    <label>Address:</label>
+                <div className="restaurant-single-container">
                     <input
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
+                        placeholder="Enter address"
                     />
                 </div>
-                <div className="singleForm-container">
-                    <label>Schedule:</label>
+                <div className="restaurant-single-container">
                     <input
                         type="text"
                         value={schedule}
-                              onChange={(e) => setSchedule(e.target.value)}/>
+                        onChange={(e) => setSchedule(e.target.value)}
+                        placeholder="Enter schedule"
+                    />
+
                 </div>
-                <div className="singleForm-container">
-                    <label>Contacts:</label>
+                <div className="restaurant-single-container">
                     <input
                         type="text"
                         value={contacts}
-                              onChange={(e) => setContacts(e.target.value)}/>
+                        onChange={(e) => setContacts(e.target.value)}
+                        placeholder="Enter contacts"
+                    />
                 </div>
-                <div className="singleForm-container">
-                    <label>Average Check:</label>
+                <div className="restaurant-single-container">
                     <input
                         type="text"
                         value={averageCheck}
-                              onChange={(e) => setAverageCheck(e.target.value)}/>
+                        onChange={(e) => setAverageCheck(e.target.value)}
+                        placeholder="Enter avr. check"
+                    />
                 </div>
-                <button type="submit">Add Restaurant</button>
+                <button type="submit">save</button>
 
                 {/*{status === "loading" && <p>Loading...</p>}*/}
                 {/*{status === "error" && <p>{error}</p>}*/}

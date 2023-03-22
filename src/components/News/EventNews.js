@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
-import "./GeneralNews.css"
+import "./EventNews.css"
 
 import {newsActions} from "../../redux/slices/news.slices";
 import {EventNewsItem} from "../NewsItem/EventNewsItem";
@@ -56,7 +56,7 @@ const EventNews = () => {
 
             )}
             <h4>EventNews:</h4>
-            <div className="EventNews-container">
+            <div className="eventNews-container">
 
                 {Array.isArray(eventNews) ? (eventNews.map(eventNewsItem =>
                         <EventNewsItem key={eventNewsItem.id}

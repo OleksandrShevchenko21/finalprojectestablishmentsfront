@@ -57,25 +57,7 @@ const logOut = createAsyncThunk(
             }
         }
     );
-// const getLogIn = createAsyncThunk(
-//     'userSlice/getLogIn',
-//     async (user, {rejectWithValue,dispatch}) => {
-//         try {
-//             const {response} = await userService.getLogIn(user);
-//             const {data,headers} = response;
-//             const token = headers.authorization.split(' ')[1];
-//             const { user: loggedInUser } = data;
-//             localStorage.setItem('token', token);
-//             console.log(token);
-//             console.log(headers.get('Authorization'));
-//
-//             dispatch(setCurrentUser({ user: loggedInUser, token }));
-//             return data
-//         } catch (e) {
-//             return rejectWithValue(e.response.data)
-//         }
-//
-//     }
+
 const getUserByID = createAsyncThunk(
     'userSlice/getUserById',
     async ({id}, {rejectWithValue}) => {

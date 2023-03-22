@@ -1,21 +1,27 @@
-.form-container {
+.main-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    margin: 20px;
+    justify-content: center;
+
+    width: 900px;
+
 }
-.singleForm-container{
+.restaurant-single-container{
     display: flex;
     flex-direction: column;
 }
 
-.form-container form {
+.restaurant-single-container form {
     margin-right: 10px;
 }
 
-.form-container button {
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 10px;
+.restaurant-single-container button {
+    /*background-color: blue;*/
+    /*color: white;*/
+    /*width: 50px;*/
+    /*height: 10px;*/
+
+}
+.restaurant-single-container input {
+width: 135px;
 }

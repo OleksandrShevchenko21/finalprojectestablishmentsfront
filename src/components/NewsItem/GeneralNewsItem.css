@@ -1,11 +1,12 @@
 .generalNewsItem-info-container{
     display: flex;
     flex-direction: row;
-    margin: 10px;
-    padding: 5px;
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 500px;
+    justify-content: space-between;
+    margin: 5px;
+    /*padding: 5px;*/
+    /*border: 1px solid black;*/
+    /*border-radius: 10px;*/
+    width: 350px;
 }
 .generalNewsItem-button-container{
     display: flex;
@@ -16,11 +17,12 @@
 .promotionNewsItem-info-container{
     display: flex;
     flex-direction: row;
-    margin: 10px;
-    padding: 5px;
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 500px;
+    justify-content: space-between;
+    margin: 5px;
+    /*padding: 5px;*/
+    /*border: 1px solid black;*/
+    /*border-radius: 10px;*/
+    width: 350px;
 }
 .promotionNewsItem-button-container{
     display: flex;
@@ -31,11 +33,12 @@
 .eventNewsItem-info-container{
     display: flex;
     flex-direction: row;
-    margin: 10px;
-    padding: 5px;
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 500px;
+    justify-content: space-between;
+    margin: 5px;
+    /*padding: 5px;*/
+    /*border: 1px solid black;*/
+    /*border-radius: 10px;*/
+    width: 350px;
 }
 .eventNewsItem-button-container{
     display: flex;
