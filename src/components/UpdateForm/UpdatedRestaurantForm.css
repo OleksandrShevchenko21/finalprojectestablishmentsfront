@@ -1,0 +1,27 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+
+    width: 900px;
+
+}
+.restaurant-single-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant-single-container form {
+    margin-right: 10px;
+}
+
+.restaurant-single-container button {
+    /*background-color: blue;*/
+    /*color: white;*/
+    /*width: 50px;*/
+    /*height: 10px;*/
+
+}
+.restaurant-single-container input {
+    width: 135px;
+}

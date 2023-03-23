@@ -5,6 +5,7 @@ import "./Bookings.css"
 import {bookingActions} from "../../redux/slices/booking.slice";
 import {Booking} from "../Booking/Booking";
 import {UpdateBookingForm} from "../UpdateForm/UpdatedBookingForm";
+import jwt_decode from "jwt-decode";
 
 
 const Bookings = () => {
@@ -12,7 +13,7 @@ const Bookings = () => {
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [selectedBooking, setSelectedBooking] = useState(null);
     const {bookings} = useSelector((state) => state.bookingReducer);
-
+    console.log(bookings);
     const initialFormValues = {
 
         id: "",
@@ -44,8 +45,13 @@ const Bookings = () => {
         setSelectedBooking(booking);
         setFormValues(booking);
     };
+    const token = localStorage.getItem('token');
     useEffect(() => {
-        dispatch(bookingActions.getAllBookings())
+        if (token) {
+            const decodedToken = jwt_decode(token);
+            const tokenUserName = decodedToken.sub;
+            dispatch(bookingActions.getAllBookingsByUserName(tokenUserName))
+        }
     }, [])
     return (
         <div>
@@ -65,8 +71,8 @@ const Bookings = () => {
 
                 {Array.isArray(bookings) ? (bookings.map(booking =>
                         <Booking key={booking.id}
-                                         booking={booking}
-                                         onEdit={handleEdit}/>)
+                                 booking={booking}
+                                 onEdit={handleEdit}/>)
                 ) : (
                     <p>No Bookings found</p>
                 )}

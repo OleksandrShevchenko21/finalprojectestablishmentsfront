@@ -1,10 +1,10 @@
 import {useDispatch, useSelector} from "react-redux";
 
 import {useEffect, useState} from "react";
-import './NewUsertForm.css'
+import './NewUserForm.css'
 import {userActions} from "../../redux/slices/user.slice";
 
-const NewUserForm = () => {
+const NewUserForm = ({onClose}) => {
 
     const dispatch = useDispatch();
 
@@ -32,37 +32,42 @@ const NewUserForm = () => {
         setPassword('');
         setRole('');
 
+        onClose();
+
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div className="singleForm-container">
-                    <label>Name:</label>
+            <div className="user-form-container">
+                <div className="user-singleForm-container">
+                    {/*<label>Name:</label>*/}
                     <input
                         type="text"
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
+                        placeholder="Enter your name"
                     />
                 </div>
-                <div className="singleForm-container">
-                    <label>Password:</label>
+                <div className="user-singleForm-container">
+                    {/*<label>Password:</label>*/}
                     <input
                         type="text"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter your password"
                     />
                 </div>
-                <div className="singleForm-container">
-                    <label>Role:</label>
+                <div className="user-singleForm-container">
+                    {/*<label>Role:</label>*/}
                     <input
                         type="text"
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
+                        placeholder="Enter your role"
                     />
                 </div>
 
-                <button type="submit">Add User</button>
+                <button type="submit">Sign Up</button>
 
                 {/*{status === "loading" && <p>Loading...</p>}*/}
                 {/*{status === "error" && <p>{error}</p>}*/}

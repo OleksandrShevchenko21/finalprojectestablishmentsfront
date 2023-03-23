@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {userActions} from "../../redux/slices/user.slice";
 import jwt_decode from "jwt-decode";
 import "./LoginPage.css"
+import {bookingActions} from "../../redux/slices/booking.slice";
+import {NewUserForm} from "../NewForm/NewUserForm";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -14,7 +16,18 @@ const LoginPage = () => {
     const [loginError, setLoginError] = useState("");
 
     const [tokenUserName, setTokenUserName] = useState("");
+    const [showLoginForm, setShowLoginForm] = useState(false);
+    const [showSignUpForm, setShowSignUpForm] = useState(false);
 
+    const handleLogIn = async (e) => {
+        setShowLoginForm(true)
+    }
+    const handleSignUp = async (e) => {
+        setShowSignUpForm(true)
+    }
+    const handleSignUpFormClose = () => {
+        setShowSignUpForm(false);
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -41,11 +54,13 @@ const LoginPage = () => {
         } catch (error) {
             setLoginError(error.message);
         }
+        window.location.reload(true);
     };
     const handleLogOut = (e) => {
         dispatch(userActions.logOut())
         window.location.reload(true);
     }
+
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -58,40 +73,63 @@ const LoginPage = () => {
     }, [token]);
     return (
         <div>
-            {token ? (
-                <div className="login-welcome-container">
-                    <h6>Welcome, {tokenUserName}!</h6>
-                    <button onClick={handleLogOut}>Log out</button>
-                </div>
-            ) : (<form onSubmit={handleSubmit}>
-                    <div className="login-form-container">
-                        <div className="login-singleForm-container">
-                            {/*<label>Name:</label>*/}
-                            <input
-                                type="text"
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                            />
-                        </div>
-                        <div className="login-singleForm-container">
-                            {/*<label>Password:</label>*/}
-                            <input
-                                type="text"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
+            <div>
+                {token ? (
+                    <div className="login-welcome-container">
+                        <h6>Welcome, {tokenUserName}!</h6>
+                        <button onClick={handleLogOut}>Log out</button>
 
-                        <button type="submit">Log in</button>
-
-
-                        {/*{status === "loading" && <p>Loading...</p>}*/}
-                        {/*{status === "error" && <p>{error}</p>}*/}
-                        {loginError && <p>{loginError}</p>}
                     </div>
-                </form>
-            )}
+                ) : (
+                    showSignUpForm ? (
+                        <div>
+                            <NewUserForm onClose={handleSignUpFormClose}/>
+                        </div>
+
+                    ) : (
+                        showLoginForm ? (
+                            <form onSubmit={handleSubmit}>
+                                <div className="login-form-container">
+                                    <div className="login-singleForm-container">
+                                        {/*<label>Name:</label>*/}
+                                        <input
+                                            type="text"
+                                            value={userName}
+                                            onChange={(e) => setUserName(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="login-singleForm-container">
+                                        {/*<label>Password:</label>*/}
+                                        <input
+                                            type="text"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                        />
+                                    </div>
+
+                                    <button type="submit">Log in</button>
+
+
+                                    {/*{status === "loading" && <p>Loading...</p>}*/}
+                                    {/*{status === "error" && <p>{error}</p>}*/}
+                                    {loginError && <p>{loginError}</p>}
+                                </div>
+                            </form>
+                        ) : (
+                            <div className="login-form-container">
+                                <button onClick={handleLogIn}>Log in</button>
+                                <button onClick={handleSignUp}>Sign up</button>
+                            </div>
+                        )
+                    )
+                )}
+                {/*</div>)}*/}
+            </div>
+            {/*<div>*/}
+            {/*</div>*/}
         < /div>
     );
 };
-export {LoginPage};
+export {
+    LoginPage
+};

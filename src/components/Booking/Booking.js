@@ -14,7 +14,9 @@ const Booking = ({booking, onEdit}) => {
         gender,
         numPeople,
         whoPays,
-        desiredExpenses
+        desiredExpenses,
+        restaurantId,
+        userName
     } = booking
 
     return (
@@ -27,6 +29,7 @@ const Booking = ({booking, onEdit}) => {
                 <div>num of people: {numPeople}</div>
                 <div>who will pay: {whoPays}</div>
                 <div>desired expenses: {desiredExpenses}</div>
+                <div>name: {userName}</div>
             </div>
             <div className="booking-button-container">
 

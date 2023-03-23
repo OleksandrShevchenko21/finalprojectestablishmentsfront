@@ -5,7 +5,7 @@ import {bookingService} from "../../services/bookingService";
 
 const initialState = {
     bookings: [],
-
+    bookingsByUser: [],
     loading: false,
     error: null,
 
@@ -17,6 +17,17 @@ const getAllBookings = createAsyncThunk(
     async (_, {rejectWithValue}) => {
         try {
             const {data} = await bookingService.getAllBookings();
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+    }
+);
+const getAllBookingsByUserName = createAsyncThunk(
+    'bookingSlice/getAllBookingsByUserName',
+    async (userName, {rejectWithValue}) => {
+        try {
+            const {data} = await bookingService.getAllBookingsByUserName(userName);
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -83,6 +94,17 @@ const bookingSlice = createSlice({
             .addCase(getAllBookings.fulfilled, (state, action) => {
                 state.bookings = action.payload
             })
+            .addCase(getAllBookingsByUserName.fulfilled, (state, action) => {
+
+                state.bookings = action.payload
+                state.bookingsByUser = state.bookings.filter((booking) => {
+                    if (booking.username === action.payload.userName) {
+                        return action.payload;
+                    } else {
+                        return null;
+                    }
+                })
+            })
 
             .addCase(deleteBookingById.fulfilled, (state, action) => {
             })
@@ -113,6 +135,7 @@ const {
 
 const bookingActions = {
     getAllBookings,
+    getAllBookingsByUserName,
     saveBooking,
     updateBookingById,
     deleteBookingById,

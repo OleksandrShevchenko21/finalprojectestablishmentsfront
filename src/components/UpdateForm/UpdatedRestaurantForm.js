@@ -1,7 +1,7 @@
 import {restaurantActions} from "../../redux";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Restaurants} from "../Restaurants/Restaurants";
+import "./UpdatedRestaurantForm.css"
 
 const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
 
@@ -51,64 +51,64 @@ const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div>
-                    <label>Restaurant ID:</label>
-                    <input
-                        type="text"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                        readOnly
-                    />
-                </div>
-                <div>
-                    <label>Name:</label>
+            <div className="update-main-container">
+                {/*<div className="restaurant-single-container">*/}
+                {/*    <div>*/}
+                {/*        <label>Restaurant ID:</label>*/}
+                {/*        <input*/}
+                {/*            type="text"*/}
+                {/*            value={id}*/}
+                {/*            onChange={(e) => setId(e.target.value)}*/}
+                {/*            readOnly*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                <div className="restaurant-single-container">
+                    {/*<label>Name:</label>*/}
                     <input
                         type="text"
                         value={restaurantName}
                         onChange={(e) => setRestaurantName(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label>Type:</label>
+                <div className="restaurant-single-container">
+                    {/*<label>Type:</label>*/}
                     <input
                         type="text"
                         value={type}
                         onChange={(e) => setType(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label>Address:</label>
+                <div className="restaurant-single-container">
+                    {/*<label>Address:</label>*/}
                     <input
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     />
                 </div>
-                <div>
-                    <label>Schedule:</label>
-                    {/*<textarea */}
+                <div className="restaurant-single-container">
+                    {/*<label>Schedule:</label>*/}
                     <input
                         type="text"
                         value={schedule}
                         onChange={(e) => setSchedule(e.target.value)}/>
                 </div>
-                <div>
-                    <label>Contacts:</label>
+                <div className="restaurant-single-container">
+                    {/*<label>Contacts:</label>*/}
                     <input
                         type="text"
                         value={contacts}
                         onChange={(e) => setContacts(e.target.value)}/>
                 </div>
-                <div>
-                    <label>Average Check:</label>
+                <div className="restaurant-single-container">
+                    {/*<label>Average Check:</label>*/}
                     <input
                         type="text"
                         value={averageCheck}
                         onChange={(e) => setAverageCheck(e.target.value)}/>
                 </div>
-                <div>
-                    <label>Date of publish:</label>
+                <div className="restaurant-single-container">
+                    {/*<label>Date of publish:</label>*/}
                     <input
                         type="text"
                         value={dateOfPublish}
@@ -121,6 +121,7 @@ const UpdateRestaurantForm = ({restaurant, onUpdate, onClose, resetForm}) => {
             </div>
         </form>
 
-    );
+    )
+        ;
 }
 export {UpdateRestaurantForm};

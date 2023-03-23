@@ -1,16 +1,20 @@
-.form-container {
+.user-form-container{
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     margin: 20px;
+    width: 600px;
 }
-.singleForm-container{
+.user-singleForm-container{
     display: flex;
     flex-direction: column;
+    /*align-items: flex-end;*/
+    width: 200px;
 }
 
-.form-container form {
-    margin-right: 10px;
+.user-form-container button{
+    width: 80px;
 }
 
 .form-container button {

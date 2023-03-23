@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import './NewBookingForm.css'
 import {bookingActions} from "../../redux/slices/booking.slice";
+import jwt_decode from "jwt-decode";
 
 const NewBookingForm = ({restaurant, onSubmit}) => {
     console.log(restaurant);
@@ -16,6 +17,7 @@ const NewBookingForm = ({restaurant, onSubmit}) => {
     const [numPeople, setNumPeople] = useState('');
     const [whoPays, setWhoPays] = useState('');
     const [desiredExpenses, setDesiredExpenses] = useState('');
+    const [userName, setUserName] = useState(null);
 
     const handleReservationDateTimeChange = (e) => {
         setReservationDateTime(e.target.value);
@@ -37,7 +39,8 @@ const NewBookingForm = ({restaurant, onSubmit}) => {
             numPeople,
             whoPays,
             desiredExpenses,
-            restaurantId: restaurant.id
+            restaurantId: restaurant.id,
+            userName: userName
         };
         e.preventDefault();
 
@@ -52,8 +55,18 @@ const NewBookingForm = ({restaurant, onSubmit}) => {
         setWhoPays('');
         setDesiredExpenses('');
         onSubmit && onSubmit();
-
     };
+    const token = localStorage.getItem("token");
+    useEffect(() => {
+        if (token) {
+            const decodedToken = jwt_decode(token);
+            const tokenUserName = decodedToken.sub;
+
+            setUserName(tokenUserName);
+        }
+    }, []);
+    console.log("userName: " + userName);
+    // console.log(token);
     // setRestaurantId(restaurant.id)
     return (
         <form onSubmit={handleSubmit}>

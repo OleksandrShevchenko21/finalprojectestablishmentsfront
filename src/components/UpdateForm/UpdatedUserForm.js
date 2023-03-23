@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Users} from "../Users/Users";
 import {userActions} from "../../redux/slices/user.slice";
+import"./UpdatedUserForm.css"
 
 const UpdateUserForm = ({user, onUpdate, onClose, resetForm}) => {
 

@@ -134,14 +134,7 @@ const reviewSlice = createSlice({
                 // state.reviews = state.reviews.filter(rev)
             })
             .addCase(getAllReviewsByRestaurant.fulfilled, (state, action) => {
-                // const {restaurantId, reviews} = action.payload;
-                // if (reviews) {
-                //     state.reviewsByRestaurant[restaurantId] = reviews;
-                // } else {
-                //     state.reviewsByRestaurant[restaurantId] = [];
-                // }
-                // state.reviewsByRestaurant[restaurantId] = action.payload;
-                // state.reviewsByRestaurant.push(action.payload);
+
                 state.reviews = action.payload
                 state.reviewsByRestaurant = state.reviews.filter((review) => {
                     if (review.restaurantId === action.payload.restaurantId) {

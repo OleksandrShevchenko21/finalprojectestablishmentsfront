@@ -27,17 +27,17 @@ const Restaurants = () => {
         averageCheck: "",
         dateOfPublish: ""
     };
-    const initialFormReviewValues = {
-
-        id: "",
-        comment: "",
-        rating: "",
-        averageCheck: "",
-        restaurantId: ""
-
-    };
+    // const initialFormReviewValues = {
+    //
+    //     id: "",
+    //     comment: "",
+    //     rating: "",
+    //     averageCheck: "",
+    //     restaurantId: ""
+    //
+    // };
     const [formRestaurantValues, setFormRestaurantValues] = useState(initialFormRestaurantValues);
-    const [formReviewValues, setFormReviewValues] = useState(initialFormReviewValues);
+    // const [formReviewValues, setFormReviewValues] = useState(initialFormReviewValues);
 
     const resetForm = () => {
         setSelectedRestaurant(null);
@@ -45,7 +45,7 @@ const Restaurants = () => {
         setShowUpdateRestaurantForm(false);
         setShowUpdateReviewForm(false);
         setFormRestaurantValues(initialFormRestaurantValues);
-        setFormReviewValues(initialFormReviewValues);
+        // setFormReviewValues(initialFormReviewValues);
 
     };
     const handleUpdate = async (id, updatedRestaurant) => {

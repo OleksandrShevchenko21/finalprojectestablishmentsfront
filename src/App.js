@@ -19,8 +19,7 @@ const App = () => {
             <Header/>
             <div>
                 <HomePage/>
-                {/*<NewRestaurantForm/>*/}
-                {/*<Restaurants/>*/}
+
             </div>
         </div>
     )

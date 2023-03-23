@@ -20,3 +20,8 @@ export * from './Bookings/Bookings';
 export * from './NewForm/NewBookingForm';
 export * from './UpdateForm/UpdatedBookingForm';
 export * from './Pages/LoginPage';
+export * from './Pages/HomePage';
+export * from './Pages/SearchPage';
+export * from './Pages/FilterPage';
+export * from './Favorites/Favorites';
+export * from './Favorite/Favorite';

@@ -11,6 +11,8 @@ import {NewGeneralNewsForm} from "../NewForm/NewGeneralNewsForm";
 import {NewPromotionNewsForm} from "../NewForm/NewPromotionNewsForm";
 import {NewEventNewsForm} from "../NewForm/NewEventNewsForm";
 import {NewBookingForm} from "../NewForm/NewBookingForm";
+import jwt_decode from "jwt-decode";
+import {bookingActions} from "../../redux/slices/booking.slice";
 
 const Restaurant = ({restaurant = {}, onEdit}) => {
     const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
     const [showAllReviews, setShowAllReviews] = useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const [currentRestaurantId, setCurrentRestaurantId] = useState(null);
+    const [userName, setUserName] = useState('');
 
 
     const {
@@ -34,7 +37,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
         contacts,
         averageCheck,
         dateOfPublish,
-        averageRating
+        averageRating,
 
     } = restaurant
     const {reviews: data} = useSelector(state => state.reviewReducer)
@@ -46,7 +49,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
     //     setSelectedRestaurant(restaurant);
     // };
 
-    const handleGetReview = async (restaurant) => {
+    const handleGetReview = async () => {
         await dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
     };
     const handleAddReview = async () => {
@@ -64,6 +67,19 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
     const handleAddBooking = async () => {
         setShowAddBookingForm(false);
     };
+
+    const handleAddToFavorites = async () => {
+       await dispatch(restaurantActions.addRestaurantToFavorites({id, userName,restaurant}))
+        }
+
+const token = localStorage.getItem('token');
+useEffect(() => {
+    if (token){
+        const decodedToken = jwt_decode(token);
+        const tokenUserName = decodedToken.sub;
+        setUserName(tokenUserName)
+    }
+}, [])
 
     return (
         <div className="super-main">
@@ -96,6 +112,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
                         <div>rating: {averageRating}</div>
                     </div>
                 </div>
+
                 <div className={"restaurant-button-container"}>
                     {/*<button onClick={handleSelectRestaurant}>Select Restaurant*/}
                     {/*</button>*/}
@@ -136,6 +153,10 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
                     <button
                         onClick={() => setShowAddBookingForm(prevState => !prevState)}>
                         {showAddBookingForm ? 'Cancel' : 'Add Booking'}
+                    </button>
+                    <button
+                        onClick={handleAddToFavorites}>
+                        toFavorites
                     </button>
                 </div>
                 {/*</div>*/}

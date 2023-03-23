@@ -39,8 +39,6 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
         setRating('');
         setAverageCheck('');
         onSubmit && onSubmit();
-
-
     };
 
     const token = localStorage.getItem("token");

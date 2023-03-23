@@ -1,6 +1,14 @@
 import {axiosService} from "./axios.service";
 import {urls} from "../configs";
-
+// const urls = {
+//     restaurants: '/api/restaurants',
+//     reviews: '/api/reviews/restaurant',
+//     users:'/api/users',
+//     generalNews:'/api/news/general',
+//     promotionNews:'/api/news/promotion',
+//     eventNews:'/api/news/event',
+//     booking:'/api/booking'
+// }
 const restaurantService = {
 
     getAllRestaurants: () => axiosService.get(urls.restaurants),
@@ -9,6 +17,9 @@ const restaurantService = {
     updateRestaurant: (id,updatedRestaurant) => axiosService.patch(`${urls.restaurants}/${id}`,updatedRestaurant ),
     getRestaurantById: (id) => axiosService.get(`${urls.restaurants}/${id}`),
     deleteRestaurantById: (id) => axiosService.delete(`${urls.restaurants}/${id}`),
+
+    getFavoritesByUserName: ({userName}) => axiosService.get(`${urls.restaurants}/${userName}`),
+    addRestaurantToFavorites: (id, userName,restaurant) => axiosService.post(`${urls.restaurants}/${id}/username/${userName}`,restaurant),
 
     getRestaurantsByRating:()=>axiosService.get(`${urls.restaurants}/sorted-by-rating`),
     getRestaurantsByNameAsc:()=>axiosService.get(`${urls.restaurants}/sorted-by-order-by-name/asc`),
