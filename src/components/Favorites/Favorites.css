@@ -1,6 +1,8 @@
 .favorites-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    /*width: 50px;*/
     /*justify-content: flex-end;*/
     /*align-items: center;*/
     /*margin: 20px;*/

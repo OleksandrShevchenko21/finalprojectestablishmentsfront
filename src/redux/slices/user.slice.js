@@ -10,6 +10,7 @@ const initialState = {
     oneUser: null,
     newUser: null,
     token: null,
+    role: null
 }
 
 const getAllUsers = createAsyncThunk(
@@ -24,20 +25,24 @@ const getAllUsers = createAsyncThunk(
 
     }
 );
+const setCurrentUser = (state, action) => {
+    state.currentUser = action.payload.user;
+    state.token = action.payload.token;
+    state.role = action.payload.role;
+}
+
 const getLogIn = createAsyncThunk(
     'userSlice/getLogIn',
     async (user, {rejectWithValue,dispatch}) => {
         try {
             const {data, headers} = await userService.getLogIn(user);
-            // const token = headers.authorization.split(' ')[1];
             const token = headers.authorization;
-            console.log(token);
-            console.log(headers.get('Authorization'));
-            localStorage.removeItem("token");
-            console.log(token);
             const { user: loggedInUser } = data;
+
+            // localStorage.removeItem("token");
+
             localStorage.setItem('token', token);
-            dispatch(setCurrentUser({ user: loggedInUser, token }));
+            dispatch(setCurrentUser({ user: loggedInUser, token,}));
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -51,7 +56,7 @@ const logOut = createAsyncThunk(
             try {
                 localStorage.removeItem('token');
                 dispatch(setCurrentUser({ user: null, token: null }));
-                return { message: 'Successfully logged out' };
+                return true;
             } catch (e) {
                 return rejectWithValue(e.response.data)
             }
@@ -63,6 +68,20 @@ const getUserByID = createAsyncThunk(
     async ({id}, {rejectWithValue}) => {
         try {
             const {data} = await userService.getUserById(id);
+            console.log(data);
+            return data;
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
+const getUserByName = createAsyncThunk(
+    'userSlice/getUserByName',
+    async (userName, {rejectWithValue}) => {
+        try {
+            const {data} = await userService.getUserByName(userName);
+            console.log(data.role);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -116,14 +135,30 @@ const deleteUserByID = createAsyncThunk(
         }
     }
 );
+// const updateRole = createAction('userSlice/updateRole', (role) => {
+//     return {
+//         payload: role
+//     }
+// })
+const updateRole = createAsyncThunk(
+    'userSlice/updateRole',
+    async (role) => {
+    return {
+        payload: role
+    }
+})
 const userSlice = createSlice({
     name: 'userSlice',
     initialState,
     reducers: {
-        setCurrentUser: (state, action) => {
-            state.currentUser = action.payload.user;
-            state.token = action.payload.token;
-        },
+        // setCurrentUser: (state, action) => {
+        //     state.currentUser = {
+        //         ...action.payload.user,
+        //         role: action.payload.role
+        //     };
+        //     state.token = action.payload.token;
+        //     console.log('Current user:', state.currentUser);
+        // },
         removeCurrentUser: (state) => {
             state.currentUser = null;
             state.token = null;
@@ -135,6 +170,7 @@ const userSlice = createSlice({
         removeUserError: (state, action) => {
             state.error = action.payload;
         },
+        updateRole
     },
     extraReducers: (builder) =>
         builder
@@ -142,10 +178,24 @@ const userSlice = createSlice({
                 state.users = action.payload
             })
             .addCase(getLogIn.fulfilled, (state, action) => {
-                // state.users = action.payload
+                state.loading = false;
+                state.currentUser = action.payload.user;
+                state.token = action.payload.token;
+                state.role = action.payload.role;
+            })
+            .addCase(logOut.fulfilled, (state) => {
+                state.loading = false;
+                state.currentUser = null;
+                state.token = null;
+                state.role = null;
             })
             .addCase(getUserByID.fulfilled, (state, action) => {
                 state.oneUser = action.payload
+            })
+            .addCase(getUserByName.fulfilled, (state, action) => {
+                state.oneUser = action.payload
+
+
             })
             .addCase(deleteUserByID.fulfilled, (state, action) => {
                 // state.Users = state.Users.filter(
@@ -174,18 +224,19 @@ const userSlice = createSlice({
 });
 const {
     reducer: userReducer,
-    actions: {setCurrentUser, removeUserSuccess,}
+    actions: {removeUserSuccess,}
 } = userSlice;
 
 const userActions = {
     getAllUsers,
-    setCurrentUser,
+    // setCurrentUser,
     getUserByID,
     saveNewUser,
     deleteUserByID,
     updateUser,
     getLogIn,
-    logOut
+    logOut,
+    getUserByName
 }
 export {
     userReducer,

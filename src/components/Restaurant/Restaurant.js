@@ -13,6 +13,7 @@ import {NewEventNewsForm} from "../NewForm/NewEventNewsForm";
 import {NewBookingForm} from "../NewForm/NewBookingForm";
 import jwt_decode from "jwt-decode";
 import {bookingActions} from "../../redux/slices/booking.slice";
+import {favoritesActions} from "../../redux/slices/favorites.slice";
 
 const Restaurant = ({restaurant = {}, onEdit}) => {
     const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
     };
 
     const handleAddToFavorites = async () => {
-       await dispatch(restaurantActions.addRestaurantToFavorites({id, userName,restaurant}))
+       await dispatch(favoritesActions.addRestaurantToFavorites({id, userName,restaurant}))
         }
 
 const token = localStorage.getItem('token');

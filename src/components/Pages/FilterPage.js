@@ -15,6 +15,7 @@ const FilterPage = () => {
 
     const [reset, setReset] = useState(false);
     const [restaurantsByRating, setRestaurantsByRating] = useState(false);
+    const [restaurantsByRatingAsc, setRestaurantsByRatingAsc] = useState(false);
     const [restaurantsByName, setRestaurantsByName] = useState(false);
     const [restaurantsByNameAsc, setRestaurantsByNameAsc] = useState(false);
     const [restaurantsByRatingGreaterThanEqual, setRestaurantsByRatingGreaterThanEqual] = useState(false);
@@ -70,7 +71,11 @@ const FilterPage = () => {
 
     useEffect(() => {
             if (restaurantsByRating) {
-                dispatch(restaurantActions.getRestaurantsByRating())
+                if (restaurantsByRatingAsc) {
+                    dispatch(restaurantActions.getRestaurantsByRatingAsc());
+                } else {
+                    dispatch(restaurantActions.getRestaurantsByRatingDesc())
+                }
 
             } else if (restaurantsByRatingGreaterThanEqual) {
                 dispatch(restaurantActions.getRestaurantsByRatingGreaterThanEqual(minRating))
@@ -107,7 +112,7 @@ const FilterPage = () => {
         }
         ,
         [reset,
-            restaurantsByRating,
+            restaurantsByRatingAsc,
             restaurantsByName,
             restaurantsByNameAsc,
             // restaurantsFindByName,
@@ -130,9 +135,10 @@ const FilterPage = () => {
             <button className="single-button" onClick={handleReset}>reset
             </button>
             <button className="single-button" onClick={() => {
+                setRestaurantsByRatingAsc(prevState => !prevState);
                 handleReset();
                 handleByRating()
-            }}>sort by rating
+            }}> {restaurantsByRatingAsc ? 'by Rating Desc' : 'by Rating Asc'}
             </button>
 
             <button className="single-button" onClick={() => {

@@ -99,11 +99,23 @@ const deleteRestaurantByID = createAsyncThunk(
         }
     }
 );
-const getRestaurantsByRating = createAsyncThunk(
-    'restaurantSlice/getRestaurantsByRating',
+const getRestaurantsByRatingAsc = createAsyncThunk(
+    'restaurantSlice/getRestaurantsByRatingAsc',
     async (_, {rejectWithValue}) => {
         try {
-            const {data} = await restaurantService.getRestaurantsByRating();
+            const {data} = await restaurantService.getRestaurantsByRatingAsc();
+            return data
+        } catch (e) {
+            return rejectWithValue(e.response.data)
+        }
+
+    }
+);
+const getRestaurantsByRatingDesc = createAsyncThunk(
+    'restaurantSlice/getRestaurantsByRatingDesc',
+    async (_, {rejectWithValue}) => {
+        try {
+            const {data} = await restaurantService.getRestaurantsByRatingDesc();
             return data
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -211,32 +223,32 @@ const getRestaurantsFindByName = createAsyncThunk(
 
     }
 );
-const getFavoritesByUserName = createAsyncThunk(
-    'restaurantSlice/getFavoritesByUserName',
-    async ({userName}, {rejectWithValue}) => {
-        try {
-            const {data} = await restaurantService.getFavoritesByUserName(userName);
-            console.log(data);
-            return data
-        } catch (e) {
-            return rejectWithValue(e.response.data)
-        }
+// const getFavoritesByUserName = createAsyncThunk(
+//     'restaurantSlice/getFavoritesByUserName',
+//     async ({userName}, {rejectWithValue}) => {
+//         try {
+//             const {data} = await restaurantService.getFavoritesByUserName(userName);
+//             console.log(data);
+//             return data
+//         } catch (e) {
+//             return rejectWithValue(e.response.data)
+//         }
+//
+//     }
+// );
 
-    }
-);
-
-const addRestaurantToFavorites = createAsyncThunk(
-    'restaurantSlice/addRestaurantToFavorites',
-    async ({id, userName, restaurant}, {rejectWithValue}) => {
-        try {
-            const {data} = await restaurantService.addRestaurantToFavorites(id, userName, restaurant);
-            return data
-        } catch (e) {
-            return rejectWithValue(e.response.data)
-        }
-
-    }
-);
+// const addRestaurantToFavorites = createAsyncThunk(
+//     'restaurantSlice/addRestaurantToFavorites',
+//     async ({id, userName, restaurant}, {rejectWithValue}) => {
+//         try {
+//             const {data} = await restaurantService.addRestaurantToFavorites(id, userName, restaurant);
+//             return data
+//         } catch (e) {
+//             return rejectWithValue(e.response.data)
+//         }
+//
+//     }
+// );
 
 const restaurantSlice = createSlice({
         name: 'restaurantSlice',
@@ -281,7 +293,10 @@ const restaurantSlice = createSlice({
                     })
 
                 })
-                .addCase(getRestaurantsByRating.fulfilled, (state, action) => {
+                .addCase(getRestaurantsByRatingAsc.fulfilled, (state, action) => {
+                    state.restaurants = action.payload
+                })
+                .addCase(getRestaurantsByRatingDesc.fulfilled, (state, action) => {
                     state.restaurants = action.payload
                 })
 
@@ -311,21 +326,21 @@ const restaurantSlice = createSlice({
                 .addCase(getRestaurantsFindByName.fulfilled, (state, action) => {
                     state.restaurants = action.payload
                 })
-                .addCase(getFavoritesByUserName.fulfilled, (state, action) => {
-                    state.restaurants = action.payload
-                })
-                .addCase(addRestaurantToFavorites.fulfilled, (state, action) => {
-                    // state.restaurants.push(action.payload);
-                    state.oneRestaurant = action.payload
-                    state.restaurants = state.restaurants.map((restaurant) => {
-                        if (restaurant.id === action.payload.id) {
-                            return action.payload;
-                        } else {
-                            return restaurant;
-                        }
-
-                    })
-                })
+                // .addCase(getFavoritesByUserName.fulfilled, (state, action) => {
+                //     state.restaurants = action.payload
+                // })
+                // .addCase(addRestaurantToFavorites.fulfilled, (state, action) => {
+                //     // state.restaurants.push(action.payload);
+                //     state.oneRestaurant = action.payload
+                //     state.restaurants = state.restaurants.map((restaurant) => {
+                //         if (restaurant.id === action.payload.id) {
+                //             return action.payload;
+                //         } else {
+                //             return restaurant;
+                //         }
+                //
+                //     })
+                // })
     })
 ;
 const {
@@ -342,7 +357,8 @@ const restaurantActions = {
     deleteRestaurantByID,
     updateRestaurant,
 
-    getRestaurantsByRating,
+    getRestaurantsByRatingAsc,
+    getRestaurantsByRatingDesc,
     getRestaurantsByNameAsc,
     getRestaurantsByNameDesc,
     getRestaurantsByRatingGreaterThanEqual,
@@ -351,8 +367,8 @@ const restaurantActions = {
     getRestaurantsByPublishDateAsc,
     getRestaurantsByPublishDateDesc,
     getRestaurantsFindByName,
-    getFavoritesByUserName,
-    addRestaurantToFavorites
+    // getFavoritesByUserName,
+    // addRestaurantToFavorites
 }
 export {
     restaurantReducer,

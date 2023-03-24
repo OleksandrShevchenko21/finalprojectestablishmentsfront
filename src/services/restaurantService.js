@@ -18,10 +18,9 @@ const restaurantService = {
     getRestaurantById: (id) => axiosService.get(`${urls.restaurants}/${id}`),
     deleteRestaurantById: (id) => axiosService.delete(`${urls.restaurants}/${id}`),
 
-    getFavoritesByUserName: ({userName}) => axiosService.get(`${urls.restaurants}/${userName}`),
-    addRestaurantToFavorites: (id, userName,restaurant) => axiosService.post(`${urls.restaurants}/${id}/username/${userName}`,restaurant),
 
-    getRestaurantsByRating:()=>axiosService.get(`${urls.restaurants}/sorted-by-rating`),
+    getRestaurantsByRatingAsc:()=>axiosService.get(`${urls.restaurants}/sorted-by-rating-asc`),
+    getRestaurantsByRatingDesc:()=>axiosService.get(`${urls.restaurants}/sorted-by-rating-desc`),
     getRestaurantsByNameAsc:()=>axiosService.get(`${urls.restaurants}/sorted-by-order-by-name/asc`),
     getRestaurantsByNameDesc:()=>axiosService.get(`${urls.restaurants}/sorted-by-order-by-name/desc`),
     getRestaurantsByRatingGreaterThanEqual:(minRating)=>axiosService.get(`${urls.restaurants}/filter/average-rating?minRating=${minRating}`),

@@ -14,7 +14,7 @@ const Restaurants = () => {
     const {restaurants} = useSelector((state) => state.restaurantReducer);
 
 
-    const {reviews} = useSelector((state) => state.reviewReducer);
+    // const {reviews} = useSelector((state) => state.reviewReducer);
 
     const initialFormRestaurantValues = {
 

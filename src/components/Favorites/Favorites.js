@@ -12,7 +12,6 @@ const Favorites = () => {
     const dispatch = useDispatch();
     const [userName, setUserName] = useState('');
     const {favorites} = useSelector((state) => state.favoritesReducer);
-    console.log(favorites);
 
     const initialFormValues = {
 
@@ -34,9 +33,10 @@ const Favorites = () => {
             console.log(tokenUserName);
             setUserName(tokenUserName)
             console.log(userName);
-            dispatch(favoritesActions.favoritesByUserName(tokenUserName))
         }
-    }, [])
+            dispatch(favoritesActions.favoritesByUserName(userName))
+    }, [userName])
+    console.log(favorites);
     return (
         <div>
             <h4>Favorites:</h4>

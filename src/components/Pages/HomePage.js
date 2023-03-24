@@ -50,7 +50,6 @@ const HomePage = () => {
                 <FilterPage/>
             </div>
             <div className="second-container">
-                <Favorites/>
                 <NewRestaurantForm/>
                 <Restaurants/>
             </div>
