@@ -1,21 +1,5 @@
-.form-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 20px;
-}
-.singleForm-container{
+.bookings-container {
     display: flex;
     flex-direction: column;
-}
-
-.form-container form {
-    margin-right: 10px;
-}
-
-.form-container button {
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 10px;
+    border: 1px solid black;
 }

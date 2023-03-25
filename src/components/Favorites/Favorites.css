@@ -1,22 +1,6 @@
 .favorites-container{
     display: flex;
     flex-direction: row;
-
-    /*width: 50px;*/
-    /*justify-content: flex-end;*/
-    /*align-items: center;*/
-    /*margin: 20px;*/
+    flex-wrap: wrap;
+    border: 1px solid black;
 }
-/*.sortButton{*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    margin: 10px;*/
-/*}*/
-/*.button{*/
-/*    margin: 10px;*/
-/*    width: 100px;*/
-/*}*/
-/*.buttonWithValue{*/
-/*    margin: 10px;*/
-/*    width: 100px;*/
-/*}*/

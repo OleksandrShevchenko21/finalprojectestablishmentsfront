@@ -67,7 +67,7 @@ const Bookings = () => {
 
             )}
             <h4>Bookings:</h4>
-            <div className="Bookings-container">
+            <div className="bookings-container">
 
                 {Array.isArray(bookings) ? (bookings.map(booking =>
                         <Booking key={booking.id}

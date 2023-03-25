@@ -3,25 +3,26 @@
     flex-direction: row;
     justify-content: center;
 
-    width: 900px;
+    /*width: 900px;*/
+    width: 100%;
 
 }
-.restaurant-single-container{
+.restaurant-form-single-container{
     display: flex;
     flex-direction: column;
 }
 
-.restaurant-single-container form {
-    margin-right: 10px;
-}
+/*.restaurant-form-single-container form {*/
+/*    margin-right: 10px;*/
+/*}*/
 
-.restaurant-single-container button {
+.restaurant-form-single-container button {
     /*background-color: blue;*/
     /*color: white;*/
     /*width: 50px;*/
     /*height: 10px;*/
 
 }
-.restaurant-single-container input {
+.restaurant-form-single-container input {
 width: 135px;
 }

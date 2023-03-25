@@ -13,6 +13,7 @@ const NewUserForm = ({onClose}) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = (e) => {
         const newUser = {
@@ -22,12 +23,16 @@ const NewUserForm = ({onClose}) => {
 
         };
         e.preventDefault();
+        if (!role) {
+            setErrorMessage('*please choose a role');
+            return;
+        }
 
         const jsonBody = JSON.stringify(newUser);
         console.log(jsonBody);
 
         dispatch(userActions.saveNewUser(newUser))
-        // Reset form fields
+
         setUserName('');
         setPassword('');
         setRole('');
@@ -57,14 +62,17 @@ const NewUserForm = ({onClose}) => {
                         placeholder="Enter your password"
                     />
                 </div>
-                <div className="user-singleForm-container">
+                <div className="user-singleForm-container select-container">
                     {/*<label>Role:</label>*/}
-                    <input
-                        type="text"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        placeholder="Enter your role"
-                    />
+                    {errorMessage &&
+                        <p className="error-message">{errorMessage}</p>}
+                    <select id="role-select"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}>
+                        <option value="">Select a role</option>
+                        <option value="ADMIN">Admin</option>
+                        <option value="USER">User</option>
+                    </select>
                 </div>
 
                 <button type="submit">Sign Up</button>

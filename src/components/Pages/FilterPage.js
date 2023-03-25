@@ -179,12 +179,13 @@ const FilterPage = () => {
                 <label>Type: </label>
                 <div className="value-button-container">
                     <div>
-                        <input
-                            type="text"
-                            value={type}
-                            onChange={(e) => setType(e.target.value)}
-                            placeholder="Enter type"
-                        />
+                        <select id="type-select"
+                                value={type}
+                                onChange={(e) => setType(e.target.value)}>
+                            <option value="">Select a type</option>
+                            <option value="BAR">Bar</option>
+                            <option value="Restaurant">Restaurant</option>
+                        </select>
                     </div>
 
                     <button className="single-button" onClick={() => {

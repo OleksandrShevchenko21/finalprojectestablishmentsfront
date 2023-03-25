@@ -42,7 +42,7 @@ const NewRestaurantForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="main-container">
-                <div className="restaurant-single-container">
+                <div className="restaurant-form-single-container">
 
                     <input
                         type="text"
@@ -51,7 +51,7 @@ const NewRestaurantForm = () => {
                         placeholder="Enter name"
                     />
                 </div>
-                <div className="restaurant-single-container">
+                <div className="restaurant-form-single-container">
 
                     <input
                         type="text"
@@ -60,7 +60,7 @@ const NewRestaurantForm = () => {
                         placeholder="Enter type"
                     />
                 </div>
-                <div className="restaurant-single-container">
+                <div className="restaurant-form-single-container">
                     <input
                         type="text"
                         value={address}
@@ -68,7 +68,7 @@ const NewRestaurantForm = () => {
                         placeholder="Enter address"
                     />
                 </div>
-                <div className="restaurant-single-container">
+                <div className="restaurant-form-single-container">
                     <input
                         type="text"
                         value={schedule}
@@ -77,7 +77,7 @@ const NewRestaurantForm = () => {
                     />
 
                 </div>
-                <div className="restaurant-single-container">
+                <div className="restaurant-form-single-container">
                     <input
                         type="text"
                         value={contacts}
@@ -85,7 +85,7 @@ const NewRestaurantForm = () => {
                         placeholder="Enter contacts"
                     />
                 </div>
-                <div className="restaurant-single-container">
+                <div className="restaurant-form-single-container">
                     <input
                         type="text"
                         value={averageCheck}

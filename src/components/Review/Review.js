@@ -4,6 +4,7 @@ import {reviewActions} from "../../redux/slices/review.slice";
 import jwt_decode from "jwt-decode";
 import {useState} from "react";
 import "./Review.css"
+import {newsActions} from "../../redux/slices/news.slices";
 
 
 const Review = ({review, onEdit}) => {
@@ -18,6 +19,24 @@ const Review = ({review, onEdit}) => {
         restaurantId,
         userName
     } = review
+    const token = localStorage.getItem('token');
+    const deleteButton = () => {
+        if (token) {
+            return (
+                <button
+                    onClick={() => dispatch(reviewActions.deleteReviewByID({id}))}>delete
+                </button>            )
+        }
+        return null;
+    }
+    const editButton = () => {
+        if (token) {
+            return (
+                <button onClick={() => onEdit(review)}>Edit</button>
+            )
+        }
+        return null;
+    }
 
     return (
         <div className="main-review-container">
@@ -34,10 +53,8 @@ const Review = ({review, onEdit}) => {
                 </div>
             </div>
             <div>
-                <button
-                    onClick={() => dispatch(reviewActions.deleteReviewByID({id}))}>delete
-                </button>
-                <button onClick={() => onEdit(review)}>Edit</button>
+                {deleteButton()}
+                {editButton()}
             </div>
         </div>
     );

@@ -4,8 +4,6 @@ import {useEffect, useState} from "react";
 import "./NewReviewForm.css"
 import {reviewActions} from "../../redux/slices/review.slice";
 import jwt_decode from "jwt-decode";
-import {User} from "../User/User";
-import {restaurantActions} from "../../redux";
 
 
 const NewReviewForm = ({restaurant, onSubmit}) => {
@@ -55,40 +53,52 @@ const NewReviewForm = ({restaurant, onSubmit}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div className="singleForm-container">
-                    <label>Comment:</label>
-                    <textarea
-                        type="text"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                    />
-                </div>
-                <div className="singleForm-container">
-                    <label>Rating:</label>
-                    <input
-                        type="text"
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                    />
-                </div>
-                <div className="singleForm-container">
-                    <label>Check:</label>
-                    <input
-                        type="text"
-                        value={averageCheck}
-                        onChange={(e) => setAverageCheck(e.target.value)}
-                    />
-                </div>
+            <div className="main-newReviewForm-container">
+                <div>
+                    <div className="singleForm-newReviewForm-container">
 
+                        <textarea
+                            type="text"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="your comment"
+                        />
+                    </div>
+                    <div className="sub-newReviewForm-container">
+                        <div className="singleForm-newReviewForm-container">
+
+                            <select id="rating-select"
+                                    value={rating}
+                                    onChange={(e) => setRating(e.target.value)}>
+                                <option value="">rating</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+
+                            </select>
+                        </div>
+                        <div className="singleForm-newReviewForm-container">
+
+                            <input
+                                type="text"
+                                value={averageCheck}
+                                onChange={(e) => setAverageCheck(e.target.value)}
+                                placeholder="how much you spent"
+                            />
+
+                        </div>
 
                 <button type="submit">Add Review</button>
+                    </div>
+                </div>
 
-                {/*{status === "loading" && <p>Loading...</p>}*/}
-                {/*{status === "error" && <p>{error}</p>}*/}
+
 
             </div>
         </form>
-    );
+    )
+        ;
 }
 export {NewReviewForm};

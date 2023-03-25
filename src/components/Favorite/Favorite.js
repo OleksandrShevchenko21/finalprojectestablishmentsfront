@@ -40,7 +40,7 @@ const Favorite = ({favorite}) => {
         <div className="favorite-main-container">
 
             <div className="favorite-10-container">
-                <h6> name:{restaurantName}<br/>
+                <h6> name: {restaurantName}<br/>
                     Type: {type}<br/>
                     Address: {address}<br/>
                     {/*Schedule: {schedule}<br/>*/}

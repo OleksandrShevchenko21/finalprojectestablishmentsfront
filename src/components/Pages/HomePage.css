@@ -1,27 +1,26 @@
 .main-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    /*width: 100vw;*/
+    width: 100%;
+}
 
-}
 .first-container{
-    /*display: flex;*/
-    /*flex-direction:column;*/
-    /*margin-top: 20px;*/
+    width: 15%;
 }
+
 .second-container{
     display: flex;
     flex-direction:column;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     margin-top: 20px;
+    width: 60%;
+
 }
+
 .third-container{
     display: flex;
     flex-direction:column;
-
-
-
+    width: 25%;
     background: cornsilk;
-    /*width: 200px;*/
+
 }

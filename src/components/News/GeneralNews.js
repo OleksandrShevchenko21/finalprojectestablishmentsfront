@@ -33,8 +33,6 @@ const GeneralNews = () => {
     };
 
     const handleEdit = (generalNewsItem) => {
-
-        // setFormValues(null);
         setShowUpdateForm(true);
         setSelectedGeneralNewsItem(generalNewsItem);
         setFormValues(generalNewsItem);

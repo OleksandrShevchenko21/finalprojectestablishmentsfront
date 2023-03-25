@@ -10,19 +10,9 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-    // const role = useSelector(state => state.userReducer);
-
-
-    // const {status, error, user} = useSelector(
-    //     (state) => state.userReducer);
-
     const [userName, setUserName] = useState('admin');
     const [password, setPassword] = useState('admin');
-    const [role, setRole] = useState(null);
-
-
     const [loginError, setLoginError] = useState("");
-
     const [tokenUserName, setTokenUserName] = useState("");
     const [showLoginForm, setShowLoginForm] = useState(false);
     const [showSignUpForm, setShowSignUpForm] = useState(false);
@@ -49,25 +39,11 @@ const LoginPage = () => {
             const logUser = {userName, password};
             await dispatch(userActions.getLogIn(logUser));
 
-
             const token = localStorage.getItem('token');
-
             const decodedToken = jwt_decode(token);
-
-            // dispatch(userActions.getUserByName(userName))
-            //     .then((response) => {
-            //         setRole(response.data);
-            //         console.log(response.data);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
-
             setUserName("");
             setPassword("");
             setLoginError("");
-
-            setRole(userService.getUserByName(userName).role);
         } catch (error) {
             setLoginError(error.message);
         }
@@ -86,13 +62,8 @@ const LoginPage = () => {
             const decodedToken = jwt_decode(token);
             const userName = decodedToken.sub;
             setTokenUserName(userName);
-            // console.log(dispatch(userActions.getUserByName(userName)));
-            const x = userService.getUserByName(userName);
-            setRole(x.role);
-            console.log(role);
         }
     }, [token]);
-    // console.log(currentUser.role);
 
     return (
         <div>
@@ -100,8 +71,6 @@ const LoginPage = () => {
                 {token ? (
                     <div className="login-welcome-container">
                         <h6>Welcome, {tokenUserName}!
-                            <br/>
-                            role: {role}
                         </h6>
 
                         <button onClick={handleLogOut}>Log out</button>

@@ -15,7 +15,7 @@ const NewEventNewsForm = ({restaurant, onSubmit}) => {
     const handleSubmit = (e) => {
         const newEventNews = {
             eventNews,
-            restaurantId:restaurant.id
+            restaurantId: restaurant.id
         };
         e.preventDefault();
 
@@ -30,18 +30,18 @@ const NewEventNewsForm = ({restaurant, onSubmit}) => {
     // setRestaurantId(restaurant.id)
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
+            <div className="news-form-container">
                 <div className="singleForm-container">
-                    <label>Event text:</label>
-                    <input
+
+                    <textarea
                         type="text"
                         value={eventNews}
                         onChange={(e) => setEventNews(e.target.value)}
                     />
                 </div>
-
-
-                <button type="submit">Add Event News</button>
+                <div>
+                    <button type="submit">Add Event News</button>
+                </div>
 
                 {/*{status === "loading" && <p>Loading...</p>}*/}
                 {/*{status === "error" && <p>{error}</p>}*/}

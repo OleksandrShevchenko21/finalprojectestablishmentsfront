@@ -1,21 +1,45 @@
-.form-container {
+.main-newReviewForm-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.sub-newReviewForm-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 20px;
+
 }
-.singleForm-container{
+.singleForm-newReviewForm-container{
     display: flex;
     flex-direction: column;
 }
-
+.singleForm-container-newReviewForm-select#rating-select {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    padding: 5px 10px;
+    background-color: #fff;
+}
+.singleForm-newReviewForm-container input{
+    width: 150px;
+    height: 15px;
+    margin-left: 20px;
+}
+.singleForm-newReviewForm-container textarea{
+    width: 800px;
+    height: 100px;
+}
 .form-container form {
     margin-right: 10px;
 }
 
-.form-container button {
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 10px;
+.main-newReviewForm-container button{
+
+
+
+   margin-left: 10px;
 }

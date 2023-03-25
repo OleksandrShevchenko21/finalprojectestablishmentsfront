@@ -6,11 +6,23 @@
     margin: 20px;
     width: 600px;
 }
+
 .user-singleForm-container{
     display: flex;
     flex-direction: column;
-    /*align-items: flex-end;*/
     width: 200px;
+    position: relative; /* add position relative */
+}
+
+.user-singleForm-container select {
+    /*margin-top: 10px; !* add margin top to the select element *!*/
+}
+
+.user-singleForm-container .error-message{
+    font-size: 10px;
+    color: red;
+    position: absolute; /* position error message absolutely */
+    top: -25px; /* set top to negative value */
 }
 
 .user-form-container button{
