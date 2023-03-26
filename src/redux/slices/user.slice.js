@@ -10,7 +10,8 @@ const initialState = {
     oneUser: null,
     newUser: null,
     token: null,
-    role: null
+    role: null,
+    userFromAPI:null
 }
 
 const getAllUsers = createAsyncThunk(
@@ -80,8 +81,8 @@ const getUserByName = createAsyncThunk(
     'userSlice/getUserByName',
     async (userName, {rejectWithValue}) => {
         try {
-            const {data} = await userService.getUserByName(userName);
-            console.log(data.role);
+            const {data} = await userService.getUserByName({userName});
+            console.log(data);
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data)
@@ -94,7 +95,6 @@ const getUserByName = createAsyncThunk(
 const saveNewUser = createAsyncThunk(
     'userSlice/saveNewUser',
     async (newUser, {rejectWithValue, dispatch}) => {
-        const jsonBody = JSON.stringify(newUser);
         try {
             const {data} = await userService.saveNewUser(newUser);
             dispatch(getAllUsers());
@@ -122,6 +122,19 @@ const updateUser = createAsyncThunk(
         }
     }
 );
+const updateUserByName = createAsyncThunk(
+    "userSlice/updateUserByName",
+    async ({userName, updatedUser}, {rejectWithValue, dispatch}) => {
+        try {
+
+            const {data} = await userService.updateUserByName(userName, updatedUser);
+            // dispatch(getAllUsers());
+            return data;
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
 // DELETE-------------------------DELETE---------------------------DELETE-------------------------------
 // DELETE-------------------------DELETE---------------------------DELETE-------------------------------
 const deleteUserByID = createAsyncThunk(
@@ -135,30 +148,33 @@ const deleteUserByID = createAsyncThunk(
         }
     }
 );
+const deleteUserByUserName = createAsyncThunk(
+    'userSlice/deleteUserByUserName',
+    async (userName, {rejectWithValue, dispatch}) => {
+        try {
+            await userService.deleteUserByUserName({userName});
+            // dispatch(removeUserSuccess(id));
+        } catch (e) {
+            return rejectWithValue(e.response.data);
+        }
+    }
+);
 // const updateRole = createAction('userSlice/updateRole', (role) => {
 //     return {
 //         payload: role
 //     }
 // })
-const updateRole = createAsyncThunk(
-    'userSlice/updateRole',
-    async (role) => {
-    return {
-        payload: role
-    }
-})
+// const updateRole = createAsyncThunk(
+//     'userSlice/updateRole',
+//     async (role) => {
+//     return {
+//         payload: role
+//     }
+// })
 const userSlice = createSlice({
     name: 'userSlice',
     initialState,
     reducers: {
-        // setCurrentUser: (state, action) => {
-        //     state.currentUser = {
-        //         ...action.payload.user,
-        //         role: action.payload.role
-        //     };
-        //     state.token = action.payload.token;
-        //     console.log('Current user:', state.currentUser);
-        // },
         removeCurrentUser: (state) => {
             state.currentUser = null;
             state.token = null;
@@ -170,7 +186,7 @@ const userSlice = createSlice({
         removeUserError: (state, action) => {
             state.error = action.payload;
         },
-        updateRole
+        // updateRole
     },
     extraReducers: (builder) =>
         builder
@@ -193,11 +209,16 @@ const userSlice = createSlice({
                 state.oneUser = action.payload
             })
             .addCase(getUserByName.fulfilled, (state, action) => {
-                state.oneUser = action.payload
-
+                // state.users = action.payload
+                state.userFromAPI = action.payload
 
             })
             .addCase(deleteUserByID.fulfilled, (state, action) => {
+                // state.Users = state.Users.filter(
+                //     (User) => User.id !== action.payload.id
+                // );
+            })
+            .addCase(deleteUserByUserName.fulfilled, (state, action) => {
                 // state.Users = state.Users.filter(
                 //     (User) => User.id !== action.payload.id
                 // );
@@ -207,6 +228,19 @@ const userSlice = createSlice({
                 state.users.push(action.payload);
             })
             .addCase(updateUser.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.oneUser = action.payload
+                state.users = state.users.map((user) => {
+                    if (user.id === action.payload.id) {
+                        return action.payload;
+                    } else {
+                        return user;
+                    }
+
+                })
+
+            })
+            .addCase(updateUserByName.fulfilled, (state, action) => {
                 state.status = "succeeded";
                 state.oneUser = action.payload
                 state.users = state.users.map((user) => {
@@ -233,7 +267,9 @@ const userActions = {
     getUserByID,
     saveNewUser,
     deleteUserByID,
+    deleteUserByUserName,
     updateUser,
+    updateUserByName,
     getLogIn,
     logOut,
     getUserByName

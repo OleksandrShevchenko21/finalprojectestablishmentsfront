@@ -7,6 +7,8 @@ import {bookingActions} from "../../redux/slices/booking.slice";
 import {NewUserForm} from "../NewForm/NewUserForm";
 import {userService} from "../../services";
 import {createAsyncThunk} from "@reduxjs/toolkit";
+import {Users} from "../Users/Users";
+import {User} from "../User/User";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const LoginPage = () => {
     const [tokenUserName, setTokenUserName] = useState("");
     const [showLoginForm, setShowLoginForm] = useState(false);
     const [showSignUpForm, setShowSignUpForm] = useState(false);
+    const [currentToken, setCurrentToken] = useState("");
 
     const handleLogIn = async (e) => {
         setShowLoginForm(true)
@@ -47,7 +50,7 @@ const LoginPage = () => {
         } catch (error) {
             setLoginError(error.message);
         }
-        console.log(token);
+        // console.log(token);
         window.location.reload(true);
     };
     const handleLogOut = (e) => {
@@ -57,24 +60,30 @@ const LoginPage = () => {
 
     const token = localStorage.getItem('token');
     useEffect(() => {
-
+        setCurrentToken(token)
         if (token) {
             const decodedToken = jwt_decode(token);
             const userName = decodedToken.sub;
             setTokenUserName(userName);
         }
-    }, [token]);
+            dispatch(userActions.getUserByName(userName))
+    }, [currentToken, userName]);
 
     return (
         <div>
             <div>
                 {token ? (
-                    <div className="login-welcome-container">
-                        <h6>Welcome, {tokenUserName}!
-                        </h6>
+                    <div className="login-main-container">
+                        <div className="login-welcome-container">
 
-                        <button onClick={handleLogOut}>Log out</button>
+                            {/*<h6>Welcome, {tokenUserName}!*/}
+                            {/*</h6>*/}
 
+                            <button onClick={handleLogOut}>Log out</button>
+                        </div>
+                        <div className="login-info-container">
+                            <User/>
+                        </div>
                     </div>
                 ) : (
                     showSignUpForm ? (

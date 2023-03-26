@@ -64,13 +64,13 @@ const favoritesSlice = createSlice({
         builder
             .addCase(favoritesByUserName.fulfilled, (state, action) => {
                 state.favorites = action.payload
-                state.favorites = state.favorites.filter((favorite) => {
-                    if (favorite.username === action.payload.userName) {
-                        return action.payload;
-                    } else {
-                        return null;
-                    }
-                })
+                // state.favorites = state.favorites.filter((favorite) => {
+                //     if (favorite.username === action.payload.userName) {
+                //         return action.payload;
+                //     } else {
+                //         return null;
+                //     }
+                // })
             })
             .addCase(deleteFavoritesByUserName.fulfilled, (state, action) => {
                 state.favorites = state.favorites.filter((favorite) => favorite.id !== action.payload.id);

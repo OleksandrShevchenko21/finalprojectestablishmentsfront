@@ -29,9 +29,7 @@ const Favorites = () => {
     useEffect(() => {
         if (token) {
             const decodedToken = jwt_decode(token);
-            const tokenUserName = decodedToken.sub;
-            console.log(tokenUserName);
-            setUserName(tokenUserName)
+            setUserName(decodedToken.sub);
             console.log(userName);
         }
             dispatch(favoritesActions.favoritesByUserName(userName))

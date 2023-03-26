@@ -15,6 +15,8 @@ const UpdateUserForm = ({user, onUpdate, onClose, resetForm}) => {
     const [userName, setUserName] = useState(user.userName);
     const [password, setPassword] = useState(user.password);
     const [role, setRole] = useState(user.role);
+    const [number, setNumber] = useState(user.number);
+    const [email, setEmail] = useState(user.email);
 
 
     useEffect(() => {
@@ -22,6 +24,8 @@ const UpdateUserForm = ({user, onUpdate, onClose, resetForm}) => {
         setUserName(user.userName);
         setPassword(user.password);
         setRole(user.role);
+        setNumber(user.number);
+        setEmail(user.email);
 
     }, [user]);
 
@@ -33,7 +37,9 @@ const UpdateUserForm = ({user, onUpdate, onClose, resetForm}) => {
             // id,
             userName,
             password,
-            role
+            role,
+            number,
+            email
         };
 
         const jsonBody = JSON.stringify(updatedUser);
@@ -73,10 +79,29 @@ const UpdateUserForm = ({user, onUpdate, onClose, resetForm}) => {
                 </div>
                 <div>
                     <label>Role:</label>
+                    <select id="role-select"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}>
+                        <option value="">Select a role</option>
+                        <option value="ADMIN">Admin</option>
+                        <option value="USER">User</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Number:</label>
                     <input
                         type="text"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
+                        value={number}
+                        onChange={(e) => setNumber(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+
                     />
                 </div>
 

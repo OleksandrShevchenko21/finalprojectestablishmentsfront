@@ -9,6 +9,7 @@ import {Bookings} from "../Bookings/Bookings";
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {Favorites} from "../Favorites/Favorites";
+import {Users} from "../Users/Users";
 
 const HomePage = () => {
     const dispatch = useDispatch();

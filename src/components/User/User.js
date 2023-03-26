@@ -1,35 +1,108 @@
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {userActions} from "../../redux/slices/user.slice";
 import "./User.css"
+import {useEffect, useState} from "react";
+import jwt_decode from "jwt-decode";
+import {UpdateUserForm} from "../UpdateForm/UpdatedUserForm";
 
 const User = ({user, onEdit}) => {
     const dispatch = useDispatch();
-    // const [showUpdateForm, setShowUpdateForm] = useState(false);
-    const {
-        id,
-        userName,
-        // password,
-        role
-    } = user
+    const [userName, setUserName] = useState('');
+    const {users, userFromAPI} = useSelector((state) => state.userReducer);
+    const [currentToken, setCurrentToken] = useState('');
+
+
+    // ------------------------------------------
+
+    const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+
+    const initialFormValues = {
+
+        id: "",
+        userName: "",
+        password: "",
+        role: "",
+        number: "",
+        email: "",
+    };
+    const [formValues, setFormValues] = useState(initialFormValues);
+    const resetForm = () => {
+        setSelectedUser(null);
+        setShowUpdateForm(false);
+        setFormValues(initialFormValues);
+    };
+    const handleUpdateUser = async (id, updatedUser) => {
+        await dispatch(userActions.updateUserByName({
+            userName,
+            updatedUser
+        })).then(() =>
+            dispatch(userActions.logOut()))
+        ;
+        window.location.reload(true);
+        resetForm();
+    };
+
+    const handleEdit = (user) => {
+
+        // setFormValues(null);
+        setShowUpdateForm(true);
+        setSelectedUser(userFromAPI);
+        setFormValues(userFromAPI);
+    };
+
+    const handleDeleteUser = async (e) => {
+        await dispatch(userActions.deleteUserByUserName(userName))
+            .then(() =>
+                dispatch(userActions.logOut()))
+        window.location.reload(true);
+    }
+    // ------------------------------------------
+    const token = localStorage.getItem('token');
+    useEffect(() => {
+    setCurrentToken(token);
+        if (currentToken) {
+            const decodedToken = jwt_decode(token);
+            setUserName(decodedToken.sub);
+            dispatch(userActions.getUserByName(userName))
+        }
+    }, [currentToken, userName]);
 
     return (
-        <div className="user-info-container">
+        <div>
             <div>
-                <div>id: {id}</div>
-                <div>username: {userName}</div>
-                {/*<div>password: {password}</div>*/}
-                <div>role: {role}</div>
+
+                {selectedUser && (
+                    <UpdateUserForm
+                        formValues={formValues}
+                        setFormValues={setFormValues}
+                        user={selectedUser}
+                        onUpdate={() => handleUpdateUser(selectedUser.id, formValues)}
+                        onClose={resetForm}
+
+                    />
+                )}
             </div>
-            <div className="user-button-container">
-                <button
-                    onClick={() => dispatch(userActions.getUserByID({id}))}>Select
-                    User
-                </button>
-                {/*<button onClick={()=>dispatch(restaurantActions.saveRestaurantByID({id}))}>add</button>*/}
-                <button
-                    onClick={() => dispatch(userActions.deleteUserByID({id}))}>delete
-                </button>
-                <button onClick={() => onEdit(user)}>Edit</button>
+            <div className="user-info-container">
+                <div className="user-login-container">
+                    Welcome, {userFromAPI && userFromAPI.userName}!
+                </div>
+                <div className="user-login-container">
+                   {userFromAPI && userFromAPI.role}
+                </div>
+                <div className="user-login-container">
+                    {userFromAPI && userFromAPI.number}
+                </div>
+                <div className="user-login-container">
+                    {userFromAPI && userFromAPI.email}
+                </div>
+                <div className="user-button-container">
+                    <button
+                        onClick={handleDeleteUser}>delete
+                    </button>
+                    <button onClick={handleEdit}>Edit</button>
+                </div>
             </div>
         </div>
     );
