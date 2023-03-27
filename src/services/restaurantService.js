@@ -1,22 +1,27 @@
 import {axiosService} from "./axios.service";
 import {urls} from "../configs";
-// const urls = {
-//     restaurants: '/api/restaurants',
-//     reviews: '/api/reviews/restaurant',
-//     users:'/api/users',
-//     generalNews:'/api/news/general',
-//     promotionNews:'/api/news/promotion',
-//     eventNews:'/api/news/event',
-//     booking:'/api/booking'
-// }
+
+const setAuthHeaders = (token) => {
+    return {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+};
 const restaurantService = {
 
     getAllRestaurants: () => axiosService.get(urls.restaurants),
     getAllReviewsByRestaurant:(id)=>axiosService.get(`${urls.reviews}/${id}`),
-    saveNewRestaurant: (newRestaurant) => axiosService.post(urls.restaurants, newRestaurant),
-    updateRestaurant: (id,updatedRestaurant) => axiosService.patch(`${urls.restaurants}/${id}`,updatedRestaurant ),
-    getRestaurantById: (id) => axiosService.get(`${urls.restaurants}/${id}`),
-    deleteRestaurantById: (id) => axiosService.delete(`${urls.restaurants}/${id}`),
+    saveNewRestaurant: (newRestaurant,token) =>
+        axiosService.post
+        (`${urls.restaurants}/admin`, newRestaurant,setAuthHeaders(token)),
+    updateRestaurant: (id,updatedRestaurant,token) =>
+        axiosService.patch
+        (`${urls.restaurants}/admin/${id}`,updatedRestaurant,setAuthHeaders(token) ),
+    getRestaurantById: (id) =>
+        axiosService.get(`${urls.restaurants}/${id}`),
+    deleteRestaurantById: (id,token) =>
+        axiosService.delete(`${urls.restaurants}/admin/${id}`,setAuthHeaders(token)),
 
 
     getRestaurantsByRatingAsc:()=>axiosService.get(`${urls.restaurants}/sorted-by-rating-asc`),

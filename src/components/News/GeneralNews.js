@@ -42,6 +42,7 @@ const GeneralNews = () => {
     }, [])
     return (
         <div>
+            <h4>GeneralNews:</h4>
             {selectedGeneralNewsItem && (
                 <UpdateGeneralNewsForm
                     formValues={formValues}
@@ -53,7 +54,6 @@ const GeneralNews = () => {
                 />
 
             )}
-            <h4>GeneralNews:</h4>
             <div className="generalNews-container">
 
                 {Array.isArray(generalNews) ? (generalNews.map(generalNewsItem =>

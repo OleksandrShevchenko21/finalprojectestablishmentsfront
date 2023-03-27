@@ -4,6 +4,7 @@ import {bookingActions} from "../../redux/slices/booking.slice";
 
 
 
+
 const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
 
     console.log(booking);
@@ -52,7 +53,7 @@ const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
+            <div className="booking-form-container">
                 <div className="singleForm-container">
                     <label>Review ID:</label>
                     <input
@@ -62,7 +63,7 @@ const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
                         readOnly
                     />
                 </div>
-                <div className="singleForm-container">
+                <div className="booking-singleForm-container">
                     <label>Purpose:</label>
                     <input
                         type="text"
@@ -71,7 +72,7 @@ const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
                     />
                 </div>
 
-                <div className="singleForm-container">
+                <div className="booking-singleForm-container">
                     <label>Gender:</label>
                     <input
                         type="text"
@@ -80,7 +81,7 @@ const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
                     />
                 </div>
 
-                <div className="singleForm-container">
+                <div className="booking-singleForm-container">
                     <label>Reservation Date Time:</label>
                     <input
                         type="text"
@@ -89,7 +90,7 @@ const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
                     />
                 </div>
 
-                <div className="singleForm-container">
+                <div className="booking-singleForm-container">
                     <label>Number of people:</label>
                     <input
                         type="number"
@@ -98,7 +99,7 @@ const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
                     />
                 </div>
 
-                <div className="singleForm-container">
+                <div className="booking-singleForm-container">
                     <label>Who will pay:</label>
                     <input
                         type="text"
@@ -107,7 +108,7 @@ const UpdateBookingForm = ({booking, onUpdate, onClose, resetForm}) => {
                     />
                 </div>
 
-                <div className="singleForm-container">
+                <div className="booking-singleForm-container">
                     <label>Desired expenses:</label>
                     <input
                         type="number"

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {reviewActions} from "../../redux/slices/review.slice";
 import {newsActions} from "../../redux/slices/news.slices";
+import "./UpdatedNewsForm.css"
 
 
 const UpdateGeneralNewsForm = ({generalNewsItem, onUpdate, onClose, resetForm}) => {
@@ -36,20 +36,10 @@ const UpdateGeneralNewsForm = ({generalNewsItem, onUpdate, onClose, resetForm}) 
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div>
-                    <label>Review ID:</label>
-                    <input
-                        type="text"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                        readOnly
-                    />
-                </div>
-                <div>
-                    <label>General News:</label>
-                    <input
-                        type="text"
+            <div className="main-news-container">
+
+                <div className="news-single-container">
+                    <textarea
                         value={generalNews}
                         onChange={(e) => setGeneralNews(e.target.value)}
                     />

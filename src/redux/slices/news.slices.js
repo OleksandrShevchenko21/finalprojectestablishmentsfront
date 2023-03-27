@@ -1,7 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {newsService} from "../../services";
 
-
+const getToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        throw new Error("User is not authorized");
+    }
+    return token;
+};
 const initialState = {
     generalNews: [],
     // promotionNews: [],
@@ -13,6 +19,7 @@ const initialState = {
     oneGeneralNews: null,
     // onePromotionNews: null,
     // oneEventNews: null,
+
 }
 
 const getAllGeneralNews = createAsyncThunk(
@@ -55,11 +62,7 @@ const saveNewGeneralNews = createAsyncThunk(
     'newsSlice/saveNewGeneralNews',
     async (newGeneralNews, {rejectWithValue, dispatch}) => {
         try {
-            // const token = getState().auth.token;
-            const token = localStorage.getItem('token');
-            if (!token) {
-                throw new Error('User is not authorized');
-            }
+            const token = getToken();
             const {data} = await newsService.saveGeneralNews(newGeneralNews,token);
             dispatch(getAllGeneralNews());
             return data;
@@ -72,7 +75,8 @@ const saveNewPromotionNews = createAsyncThunk(
     'newsSlice/saveNewPromotionNews',
     async (newPromotionNews, {rejectWithValue, dispatch}) => {
         try {
-            const {data} = await newsService.savePromotionNews(newPromotionNews);
+            const token = getToken();
+            const {data} = await newsService.savePromotionNews(newPromotionNews,token);
             dispatch(getAllPromotionNews());
             return data;
         } catch (e) {
@@ -84,7 +88,8 @@ const saveNewEventNews = createAsyncThunk(
     'newsSlice/saveNewEventNews',
     async (newEventNews, {rejectWithValue, dispatch}) => {
         try {
-            const {data} = await newsService.saveEventNews(newEventNews);
+            const token = getToken();
+            const {data} = await newsService.saveEventNews(newEventNews,token);
             dispatch(getAllEventNews());
             return data;
         } catch (e) {
@@ -100,8 +105,8 @@ const updateGeneralNews = createAsyncThunk(
     async ({id, updatedGeneralNews}, {rejectWithValue, dispatch}) => {
 
         try {
-
-            const {data} = await newsService.updateGeneralNewsById(id, updatedGeneralNews);
+            const token = getToken();
+            const {data} = await newsService.updateGeneralNewsById(id, updatedGeneralNews,token);
             dispatch(getAllGeneralNews());
             return data;
         } catch (e) {
@@ -114,8 +119,8 @@ const updatePromotionNews = createAsyncThunk(
     async ({id, updatedPromotionNews}, {rejectWithValue, dispatch}) => {
 
         try {
-
-            const {data} = await newsService.updatePromotionNewsById(id, updatedPromotionNews);
+            const token = getToken();
+            const {data} = await newsService.updatePromotionNewsById(id, updatedPromotionNews,token);
             dispatch(getAllPromotionNews());
             return data;
         } catch (e) {
@@ -128,8 +133,8 @@ const updateEventNews = createAsyncThunk(
     async ({id, updatedEventNews}, {rejectWithValue, dispatch}) => {
 
         try {
-
-            const {data} = await newsService.updateEventNewsById(id, updatedEventNews);
+            const token = getToken();
+            const {data} = await newsService.updateEventNewsById(id, updatedEventNews,token);
             dispatch(getAllEventNews());
             return data;
         } catch (e) {
@@ -143,7 +148,8 @@ const deleteGeneralNewsById = createAsyncThunk(
     'newsSlice/deleteGeneralNewsById',
     async ({id}, {rejectWithValue, dispatch}) => {
         try {
-            await newsService.deleteGeneralNewsById(id);
+            const token = getToken();
+            await newsService.deleteGeneralNewsById(id,token);
             dispatch(removeGeneralNewsSuccess(id));
         } catch (e) {
             return rejectWithValue(e.response.data);
@@ -154,7 +160,8 @@ const deletePromotionNewsById = createAsyncThunk(
     'newsSlice/deletePromotionNewsById',
     async ({id}, {rejectWithValue, dispatch}) => {
         try {
-            await newsService.deletePromotionNewsById(id);
+            const token = getToken();
+            await newsService.deletePromotionNewsById(id,token);
             dispatch(removePromotionNewsSuccess(id));
         } catch (e) {
             return rejectWithValue(e.response.data);
@@ -165,7 +172,8 @@ const deleteEventNewsById = createAsyncThunk(
     'newsSlice/deleteEventNewsById',
     async ({id}, {rejectWithValue, dispatch}) => {
         try {
-            await newsService.deleteEventNewsById(id);
+            const token = getToken();
+            await newsService.deleteEventNewsById(id,token);
             dispatch(removeEventNewsSuccess(id));
         } catch (e) {
             return rejectWithValue(e.response.data);

@@ -36,7 +36,7 @@ const Booking = ({booking, onEdit}) => {
                 <button
                     onClick={() => dispatch(bookingActions.deleteBookingById({id}))}>delete
                 </button>
-                <button onClick={() => onEdit(booking)}>Edit</button>
+                {/*<button onClick={() => onEdit(booking)}>Edit</button>*/}
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {reviewActions} from "../../redux/slices/review.slice";
 import {newsActions} from "../../redux/slices/news.slices";
+import "./UpdatedNewsForm.css"
 
 
 const UpdatePromotionNewsForm = ({promotionNewsItem, onUpdate, onClose, resetForm}) => {
@@ -36,19 +36,9 @@ const UpdatePromotionNewsForm = ({promotionNewsItem, onUpdate, onClose, resetFor
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div>
-                    <label>Review ID:</label>
-                    <input
-                        type="text"
-                        value={id}
-                        onChange={(e) => setId(e.target.value)}
-                        readOnly
-                    />
-                </div>
-                <div>
-                    <label>Promotion News:</label>
-                    <input
+            <div className="main-news-container">
+                <div className="news-single-container">
+                    <textarea
                         type="text"
                         value={promotionNews}
                         onChange={(e) => setPromotionNews(e.target.value)}

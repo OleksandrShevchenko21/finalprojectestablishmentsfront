@@ -12,8 +12,8 @@ import {User} from "../User/User";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-    const [userName, setUserName] = useState('admin');
-    const [password, setPassword] = useState('admin');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState("");
     const [tokenUserName, setTokenUserName] = useState("");
     const [showLoginForm, setShowLoginForm] = useState(false);

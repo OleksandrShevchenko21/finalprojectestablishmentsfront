@@ -1,0 +1,15 @@
+.updated-user-form-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.updated-user-single-form-container{
+    display: flex;
+    flex-direction: column;
+}
+.updated-user-form-container input{
+    width: 150px;
+}
+.updated-user-form-container button{
+    margin-top: 15px;
+}

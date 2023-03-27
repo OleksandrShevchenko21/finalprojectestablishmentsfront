@@ -44,6 +44,7 @@ const PromotionNews = () => {
     }, [])
     return (
         <div>
+            <h4>PromotionNews:</h4>
             {selectedPromotionNewsItem && (
                 <UpdatePromotionNewsForm
                     formValues={formValues}
@@ -55,13 +56,12 @@ const PromotionNews = () => {
                 />
 
             )}
-            <h4>PromotionNews:</h4>
             <div className="promotionNews-container">
 
                 {Array.isArray(promotionNews) ? (promotionNews.map(promotionNewsItem =>
                         <PromotionNewsItem key={promotionNewsItem.id}
-                                         promotionNewsItem={promotionNewsItem}
-                                         onEdit={handleEdit}/>)
+                                           promotionNewsItem={promotionNewsItem}
+                                           onEdit={handleEdit}/>)
                 ) : (
                     <p>No PromotionNews found</p>
                 )}

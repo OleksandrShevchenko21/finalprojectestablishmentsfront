@@ -37,8 +37,9 @@ const User = ({user, onEdit}) => {
         await dispatch(userActions.updateUserByName({
             userName,
             updatedUser
-        })).then(() =>
-            dispatch(userActions.logOut()))
+        }))
+        // .then(() =>
+        // dispatch(userActions.logOut()))
         ;
         window.location.reload(true);
         resetForm();
@@ -61,7 +62,7 @@ const User = ({user, onEdit}) => {
     // ------------------------------------------
     const token = localStorage.getItem('token');
     useEffect(() => {
-    setCurrentToken(token);
+        setCurrentToken(token);
         if (currentToken) {
             const decodedToken = jwt_decode(token);
             setUserName(decodedToken.sub);
@@ -70,9 +71,8 @@ const User = ({user, onEdit}) => {
     }, [currentToken, userName]);
 
     return (
-        <div>
-            <div>
-
+        <div className="main-user-login-container">
+            <div className="update-form-container">
                 {selectedUser && (
                     <UpdateUserForm
                         formValues={formValues}
@@ -84,24 +84,27 @@ const User = ({user, onEdit}) => {
                     />
                 )}
             </div>
-            <div className="user-info-container">
-                <div className="user-login-container">
-                    Welcome, {userFromAPI && userFromAPI.userName}!
-                </div>
-                <div className="user-login-container">
-                   {userFromAPI && userFromAPI.role}
-                </div>
-                <div className="user-login-container">
-                    {userFromAPI && userFromAPI.number}
-                </div>
-                <div className="user-login-container">
-                    {userFromAPI && userFromAPI.email}
-                </div>
-                <div className="user-button-container">
-                    <button
-                        onClick={handleDeleteUser}>delete
-                    </button>
-                    <button onClick={handleEdit}>Edit</button>
+            <div>
+
+                <div className="user-info-container">
+                    <div className="user-login-container">
+                        Welcome, {userFromAPI && userFromAPI.userName}!
+                    </div>
+                    <div className="user-login-container">
+                        {userFromAPI && userFromAPI.role}
+                    </div>
+                    <div className="user-login-container">
+                        {userFromAPI && userFromAPI.number}
+                    </div>
+                    <div className="user-login-container">
+                        {userFromAPI && userFromAPI.email}
+                    </div>
+                    <div className="user-button-container">
+                        <button
+                            onClick={handleDeleteUser}>delete
+                        </button>
+                        <button onClick={handleEdit}>Edit</button>
+                    </div>
                 </div>
             </div>
         </div>

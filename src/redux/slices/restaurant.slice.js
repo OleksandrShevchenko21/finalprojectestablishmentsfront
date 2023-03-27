@@ -5,6 +5,14 @@ import {
 } from "@reduxjs/toolkit";
 import {restaurantService, reviewService} from "../../services";
 
+const getToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        throw new Error("User is not authorized");
+    }
+    return token;
+};
+
 const initialState = {
     restaurants: [],
     favorites: [],
@@ -58,9 +66,9 @@ const getRestaurantByID = createAsyncThunk(
 const saveNewRestaurant = createAsyncThunk(
     'restaurantSlice/saveNewRestaurant',
     async (newRestaurant, {rejectWithValue, dispatch}) => {
-        const jsonBody = JSON.stringify(newRestaurant);
         try {
-            const {data} = await restaurantService.saveNewRestaurant(newRestaurant);
+            const token = getToken();
+            const {data} = await restaurantService.saveNewRestaurant(newRestaurant,token);
             dispatch(getAllRestaurants());
             return data;
         } catch (e) {
@@ -74,11 +82,9 @@ const saveNewRestaurant = createAsyncThunk(
 const updateRestaurant = createAsyncThunk(
     "restaurantSlice/updateRestaurant",
     async ({id, updatedRestaurant}, {rejectWithValue, dispatch}) => {
-        const jsonBody = JSON.stringify(updatedRestaurant);
-
         try {
-
-            const {data} = await restaurantService.updateRestaurant(id, updatedRestaurant);
+            const token = getToken();
+            const {data} = await restaurantService.updateRestaurant(id, updatedRestaurant,token);
             dispatch(getAllRestaurants());
             return data;
         } catch (e) {
@@ -92,7 +98,8 @@ const deleteRestaurantByID = createAsyncThunk(
     'restaurantSlice/deleteRestaurantById',
     async ({id}, {rejectWithValue, dispatch}) => {
         try {
-            await restaurantService.deleteRestaurantById(id);
+            const token = getToken();
+            await restaurantService.deleteRestaurantById(id,token);
             dispatch(removeRestaurantSuccess(id));
         } catch (e) {
             return rejectWithValue(e.response.data);
@@ -223,32 +230,6 @@ const getRestaurantsFindByName = createAsyncThunk(
 
     }
 );
-// const getFavoritesByUserName = createAsyncThunk(
-//     'restaurantSlice/getFavoritesByUserName',
-//     async ({userName}, {rejectWithValue}) => {
-//         try {
-//             const {data} = await restaurantService.getFavoritesByUserName(userName);
-//             console.log(data);
-//             return data
-//         } catch (e) {
-//             return rejectWithValue(e.response.data)
-//         }
-//
-//     }
-// );
-
-// const addRestaurantToFavorites = createAsyncThunk(
-//     'restaurantSlice/addRestaurantToFavorites',
-//     async ({id, userName, restaurant}, {rejectWithValue}) => {
-//         try {
-//             const {data} = await restaurantService.addRestaurantToFavorites(id, userName, restaurant);
-//             return data
-//         } catch (e) {
-//             return rejectWithValue(e.response.data)
-//         }
-//
-//     }
-// );
 
 const restaurantSlice = createSlice({
         name: 'restaurantSlice',
@@ -260,8 +241,6 @@ const restaurantSlice = createSlice({
             removeRestaurantError: (state, action) => {
                 state.error = action.payload;
             },
-            // setReviewsByRestaurant: (state, action) => {
-            // state.reviewsByRestaurant = { ...state.reviewsByRestaurant, [action.payload.id]: action.payload.reviews };
         },
         extraReducers: (builder) =>
             builder
