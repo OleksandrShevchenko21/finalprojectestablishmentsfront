@@ -17,7 +17,6 @@ const Header = () => {
             {/*    <div>{oneRestaurant && oneRestaurant.schedule}</div>*/}
             {/*    <div>{oneRestaurant && oneRestaurant.contacts}</div>*/}
             {/*    <div>{oneRestaurant && oneRestaurant.averageCheck}</div>*/}
-
         </div>
     );
 };
