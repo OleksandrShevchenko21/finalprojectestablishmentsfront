@@ -35,7 +35,7 @@ const PromotionNewsItem = ({promotionNewsItem, onEdit}) => {
             <div>
                 <div>id: {id}</div>
                 <div className="news-text">
-                    <div>PromotionNewsText: {promotionNews}</div>
+                    {promotionNews}
                 </div>
                 <hr/>
             </div>

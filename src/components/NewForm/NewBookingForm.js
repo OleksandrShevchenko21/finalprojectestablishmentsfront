@@ -70,70 +70,77 @@ const NewBookingForm = ({restaurant, onSubmit}) => {
     // setRestaurantId(restaurant.id)
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div className="singleForm-container">
-                    <label>Reservation Date Time:</label>
-                    <input
-                        type="datetime-local"
-                        value={reservationDateTime}
-                        onChange={handleReservationDateTimeChange}
-                        onBlur={handleReservationDateTimeBlur}
-                    />
-                </div>
+            <div className="main-booking-form-container">
+                <div className="second-booking-form-container">
+                    <div className="singleForm-container">
+                        <label>Reservation Date Time:</label>
+                        <input
+                            type="datetime-local"
+                            value={reservationDateTime}
+                            onChange={handleReservationDateTimeChange}
+                            onBlur={handleReservationDateTimeBlur}
+                        />
+                    </div>
 
-                <div className="singleForm-container">
-                    <label>Purpose:</label>
-                    <input
-                        type="text"
-                        value={purpose}
-                        onChange={(e) => setPurpose(e.target.value)}
-                    />
-                </div>
+                    <div className="singleForm-container">
+                        <label>Purpose:</label>
+                        <input
+                            type="text"
+                            value={purpose}
+                            onChange={(e) => setPurpose(e.target.value)}
+                        />
+                    </div>
 
-                <div className="singleForm-container">
-                    <label>Gender:</label>
-                    <input
-                        type="text"
-                        value={gender}
-                        onChange={(e) => setGender(e.target.value)}
-                    />
+                    <div className="singleForm-container">
+                        <label>Gender:</label>
+                        <input
+                            type="text"
+                            value={gender}
+                            onChange={(e) => setGender(e.target.value)}
+                        />
+                    </div>
                 </div>
+                <div className="second-booking-form-container">
+                    <div className="singleForm-container">
+                        <label>Number of people:</label>
+                        <input
+                            type="number"
+                            value={numPeople}
+                            onChange={(e) => setNumPeople(e.target.value)}
+                        />
+                    </div>
 
-                <div className="singleForm-container">
-                    <label>Number of people:</label>
-                    <input
-                        type="number"
-                        value={numPeople}
-                        onChange={(e) => setNumPeople(e.target.value)}
-                    />
-                </div>
+                    <div className="singleForm-container">
+                        <label>Who will pay:</label>
+                        <input
+                            type="text"
+                            value={whoPays}
+                            onChange={(e) => setWhoPays(e.target.value)}
+                        />
+                    </div>
 
-                <div className="singleForm-container">
-                    <label>Who will pay:</label>
-                    <input
-                        type="text"
-                        value={whoPays}
-                        onChange={(e) => setWhoPays(e.target.value)}
-                    />
-                </div>
-
-                <div className="singleForm-container">
-                    <label>Desired expenses:</label>
-                    <input
-                        type="number"
-                        value={desiredExpenses}
-                        onChange={(e) => setDesiredExpenses(e.target.value)}
-                    />
+                    <div className="singleForm-container">
+                        <label>Desired expenses:</label>
+                        <input
+                            type="number"
+                            value={desiredExpenses}
+                            onChange={(e) => setDesiredExpenses(e.target.value)}
+                        />
+                    </div>
                 </div>
 
 
                 <button type="submit">Add Booking</button>
 
-                {/*{status === "loading" && <p>Loading...</p>}*/}
-                {/*{status === "error" && <p>{error}</p>}*/}
+
+                {/*{status === "loading" && <p>Loading...</p>}*/
+                }
+                {/*{status === "error" && <p>{error}</p>}*/
+                }
 
             </div>
         </form>
-    );
+    )
+        ;
 }
 export {NewBookingForm};

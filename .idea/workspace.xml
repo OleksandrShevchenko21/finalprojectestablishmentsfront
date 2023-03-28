@@ -4,21 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e90a47aa-8fe2-4f01-afbe-cfbb091646a9" name="Changes" comment="13th">
-      <change afterPath="$PROJECT_DIR$/src/components/UpdateForm/UpdatedReviewForm.css" afterDir="false" />
+    <list default="true" id="e90a47aa-8fe2-4f01-afbe-cfbb091646a9" name="Changes" comment="14th">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NewForm/NewRestaurantForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewForm/NewRestaurantForm.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NewForm/NewRestaurantForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewForm/NewRestaurantForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NewForm/NewUserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewForm/NewUserForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Pages/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Pages/LoginPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Reviews/Reviews.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Reviews/Reviews.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UpdateForm/UpdatedRestaurantForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UpdateForm/UpdatedRestaurantForm.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UpdateForm/UpdatedRestaurantForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UpdateForm/UpdatedRestaurantForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UpdateForm/UpdatedReviewForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UpdateForm/UpdatedReviewForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/restaurant.slice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/restaurant.slice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/slices/review.slice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/slices/review.slice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/restaurantService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/restaurantService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/reviewService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/reviewService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewForm/NewBookingForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewForm/NewBookingForm.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewForm/NewBookingForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewForm/NewBookingForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewForm/NewGeneralNewsForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewForm/NewGeneralNewsForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewsItem/EventNewsItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewsItem/EventNewsItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewsItem/GeneralNewsItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewsItem/GeneralNewsItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewsItem/PromotionNewsItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewsItem/PromotionNewsItem.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +61,7 @@
       <updated>1679922753457</updated>
       <workItem from="1679922755158" duration="1015000" />
       <workItem from="1679925841252" duration="642000" />
-      <workItem from="1679993907440" duration="6053000" />
+      <workItem from="1679993907440" duration="8983000" />
     </task>
     <task id="LOCAL-00001" summary="13th">
       <created>1679923092925</created>
@@ -77,7 +70,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679923092925</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="14th">
+      <created>1680000065049</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680000065049</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -85,6 +85,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="13th" />
-    <option name="LAST_COMMIT_MESSAGE" value="13th" />
+    <MESSAGE value="14th" />
+    <option name="LAST_COMMIT_MESSAGE" value="14th" />
   </component>
 </project>

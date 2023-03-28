@@ -31,7 +31,7 @@ const NewGeneralNewsForm = ({restaurant, onSubmit}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="news-form-container">
-                <div className="news-singleForm-container">
+                <div className="singleForm-container">
 
                     <textarea
                         type="text"

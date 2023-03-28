@@ -1,3 +1,16 @@
+.main-booking-form-container {
+    display: flex;
+    flex-direction: column;
+
+}
+.second-booking-form-container {
+    display: flex;
+    flex-direction: row;
+}
+.second-booking-form-container {
+    display: flex;
+    flex-direction: row;
+}
 .form-container {
     display: flex;
     flex-direction: row;
@@ -11,11 +24,13 @@
 
 .form-container form {
     margin-right: 10px;
+    margin: 5px;
 }
 
-.form-container button {
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 10px;
+.main-booking-form-container button {
+    width: 470px;
+}
+.singleForm-container input {
+    width: 150px;
+    margin: 5px;
 }

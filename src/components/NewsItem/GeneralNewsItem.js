@@ -36,7 +36,7 @@ const GeneralNewsItem = ({generalNewsItem, onEdit}) => {
             <div>
                 <div>id: {id}</div>
                 <div className="news-text">
-                    generalNewsText: {generalNews}
+                    {generalNews}
                 </div>
                 <hr/>
             </div>
