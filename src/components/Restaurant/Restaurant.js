@@ -82,7 +82,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
             if (token) {
                 return (
                     <button
-                        onClick={() => dispatch(restaurantActions.deleteRestaurantByID({id}))}>delete
+                        onClick={() => dispatch(restaurantActions.deleteRestaurantByID({id}))}>Delete restaurant
                     </button>
                 )
             }
@@ -92,7 +92,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
     const editButton = () => {
         if (token) {
             return (
-                <button onClick={() => onEdit(restaurant)}>Edit</button>
+                <button onClick={() => onEdit(restaurant)}>Edit restaurant</button>
             )
         }
         return null;
@@ -208,7 +208,7 @@ const Restaurant = ({restaurant = {}, onEdit}) => {
                             setShowAllReviews(prevState => !prevState);
                             handleGetReview(restaurant);
                         }}>
-                            {showAllReviews ? 'hide' : 'see reviews'}
+                            {showAllReviews ? 'hide' : 'See reviews'}
                         </button>
                         {deleteButton()}
                         {editButton()}
