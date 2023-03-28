@@ -1,12 +1,10 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {reviewActions} from "../../redux/slices/review.slice";
-import {restaurantActions} from "../../redux";
+import "./UpdatedReviewForm.css"
 
 
 const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
-
-    console.log(review);
 
     const {status, error}
         = useSelector((state) => state.reviewReducer);
@@ -35,18 +33,19 @@ const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
             averageCheck
         };
 
-        const jsonBody = JSON.stringify(updatedReview);
-
-        dispatch(reviewActions.updateReview({id, updatedReview}));
-
+        dispatch(reviewActions.updateReview({id, updatedReview}))
+        //     .then(()=>{
+        // dispatch(reviewActions.getAllReviewsByRestaurant(currentReview.restaurantId))
+        // });
         onUpdate(id, updatedReview);
+
 
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-container">
-                <div>
+            <div className="main-updated-review-form-container">
+                <div className="single-updated-review-form-container">
                     <label>Review ID:</label>
                     <input
                         type="text"
@@ -56,20 +55,26 @@ const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
                     />
                 </div>
                 <div>
-                    <label>Comment:</label>
                     <textarea
                         type="text"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                     />
                 </div>
+                <div className="rating-check-container">
                 <div>
                     <label>Rating:</label>
-                    <input
-                        type="text"
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                    />
+                    <select id="rating-select"
+                            value={rating}
+                            onChange={(e) => setRating(e.target.value)}>
+                        <option value="">rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+
+                    </select>
                 </div>
                 <div>
                     <label>Check:</label>
@@ -79,8 +84,8 @@ const UpdateReviewForm = ({review, onUpdate, onClose, resetForm}) => {
                         onChange={(e) => setAverageCheck(e.target.value)}
                     />
                 </div>
-
                 <button type="submit">update</button>
+                </div>
 
                 {/*{status === "loading" && <p>Loading...</p>}*/}
                 {/*{status === "error" && <p>{error}</p>}*/}

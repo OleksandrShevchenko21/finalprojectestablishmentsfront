@@ -101,6 +101,7 @@ const LoginPage = () => {
                                             type="text"
                                             value={userName}
                                             onChange={(e) => setUserName(e.target.value)}
+                                            placeholder="Enter your name"
                                         />
                                     </div>
                                     <div className="login-singleForm-container">
@@ -109,6 +110,7 @@ const LoginPage = () => {
                                             type="text"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="Enter a password"
                                         />
                                     </div>
 

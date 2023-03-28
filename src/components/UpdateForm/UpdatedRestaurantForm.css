@@ -25,3 +25,7 @@
 .restaurant-single-container input {
     width: 135px;
 }
+#type-select {
+ height: 21px;
+    width: 141px;
+}

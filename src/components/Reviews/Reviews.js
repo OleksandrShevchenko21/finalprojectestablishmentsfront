@@ -52,11 +52,9 @@ const Reviews = ({restaurant = {}}) => {
     };
 
     // useEffect(() => {
-    //     dispatch(reviewActions.getAllReviewsByRestaurant(restaurant.id));
-        // return () => {
-        //     dispatch(reviewActions.clearReviews());
-        // };
-    // }, [dispatch, restaurant.id]);
+    //     dispatch(reviewActions.getAllReviewsByRestaurant(selectedReview.restaurantId));
+    //
+    // }, [selectedReview.restaurantId]);
 
     return (
         <div>

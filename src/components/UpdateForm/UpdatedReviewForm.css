@@ -1,0 +1,19 @@
+.main-updated-review-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.rating-check-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.rating-check-container input{
+width: 50px;
+}
+.main-updated-review-form-container textarea{
+width: 850px;
+}

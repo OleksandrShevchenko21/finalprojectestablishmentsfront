@@ -26,3 +26,6 @@
 .restaurant-form-single-container input {
 width: 135px;
 }
+#type-select {
+    height: 21px;
+}

@@ -1,6 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {reviewService} from "../../services";
 
+const getToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        throw new Error("User is not authorized");
+    }
+    return token;
+};
 
 const initialState = {
     reviews: [],
@@ -56,13 +63,8 @@ const saveNewReview = createAsyncThunk(
         'reviewSlice/saveNewReview',
         async (newReview, {rejectWithValue, dispatch}) => {
             try {
-                // const token = getState().auth.token;
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    throw new Error('User is not authorized');
-                }
-
-                const {data} = await reviewService.saveNewReview(newReview,token);
+                const token = getToken();
+                const {data} = await reviewService.saveNewReview(newReview, token);
                 dispatch(getAllReviewsByRestaurant(newReview.restaurantId));
                 return data;
             } catch (e) {
@@ -77,12 +79,10 @@ const saveNewReview = createAsyncThunk(
 const updateReview = createAsyncThunk(
     "reviewSlice/updateReview",
     async ({id, updatedReview}, {rejectWithValue, dispatch}) => {
-        const jsonBody = JSON.stringify(updatedReview);
-
         try {
-
-            const {data} = await reviewService.updateReview(id, updatedReview);
-            dispatch(getAllReviewsByRestaurant(updatedReview.restaurantId));
+            const token = getToken();
+            const {data} = await reviewService.updateReview(id, updatedReview,token);
+            // dispatch(getAllReviewsByRestaurant(updatedReview.restaurantId));
             return data;
         } catch (e) {
             return rejectWithValue(e.response.data);
@@ -95,7 +95,8 @@ const deleteReviewByID = createAsyncThunk(
     'reviewSlice/deleteReviewById',
     async ({id}, {rejectWithValue, dispatch}) => {
         try {
-            await reviewService.deleteReviewById(id);
+            const token = getToken();
+            await reviewService.deleteReviewById(id,token);
             dispatch(removeReviewSuccess(id));
         } catch (e) {
             return rejectWithValue(e.response.data);

@@ -45,7 +45,6 @@ const NewUserForm = ({onClose}) => {
         <form onSubmit={handleSubmit}>
             <div className="user-form-container">
                 <div className="user-singleForm-container">
-                    {/*<label>Name:</label>*/}
                     <input
                         type="text"
                         value={userName}

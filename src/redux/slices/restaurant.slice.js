@@ -305,21 +305,6 @@ const restaurantSlice = createSlice({
                 .addCase(getRestaurantsFindByName.fulfilled, (state, action) => {
                     state.restaurants = action.payload
                 })
-                // .addCase(getFavoritesByUserName.fulfilled, (state, action) => {
-                //     state.restaurants = action.payload
-                // })
-                // .addCase(addRestaurantToFavorites.fulfilled, (state, action) => {
-                //     // state.restaurants.push(action.payload);
-                //     state.oneRestaurant = action.payload
-                //     state.restaurants = state.restaurants.map((restaurant) => {
-                //         if (restaurant.id === action.payload.id) {
-                //             return action.payload;
-                //         } else {
-                //             return restaurant;
-                //         }
-                //
-                //     })
-                // })
     })
 ;
 const {

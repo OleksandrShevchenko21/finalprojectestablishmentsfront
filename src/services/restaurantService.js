@@ -17,7 +17,7 @@ const restaurantService = {
         (`${urls.restaurants}/admin`, newRestaurant,setAuthHeaders(token)),
     updateRestaurant: (id,updatedRestaurant,token) =>
         axiosService.patch
-        (`${urls.restaurants}/admin/${id}`,updatedRestaurant,setAuthHeaders(token) ),
+        (`${urls.restaurants}/admin/${id}`,updatedRestaurant,setAuthHeaders(token)),
     getRestaurantById: (id) =>
         axiosService.get(`${urls.restaurants}/${id}`),
     deleteRestaurantById: (id,token) =>
